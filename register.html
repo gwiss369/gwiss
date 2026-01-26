@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Welcome to Town Gwiss</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/6.6.6/css/flag-icons.min.css">
+</head>
+<body>
+  <body>
+<!-- Content -->
+    <div class="authentication-wrapper authentication-cover">
+      <div class="image-container">
+        <a href="" id="image-container-link" class="image-link" target="_blank"></a>
+      </div>
+      <div class="authentication-inner row m-0">
+       <!-- /Left Text -->
+       <div class="left-image"  id="random-image" style="background-image: url(&quot;https://static-gcp.freepikcompany.com/web-app/media/freepik-1-2000.webp&quot;)">
+         <div class="w-100 d-flex justify-content-center">
+         </div>
+       </div>
+       <!-- /Left Text -->
+
+       <!-- Register -->
+       <div class="register-sect">
+         <div class="w-px-400 mx-auto">
+           <!-- Logo -->
+            <div class="app-brand mb-5">
+            <a href="https://www.TownGwiss.com/register" class="app-brand-link gap-2">
+                <span class="app-brand-logo demo">
+                  <img src="img/logo.png" width="300" alt="Town.Gwiss">
+                </span>
+            </a>
+            </div>
+           <!-- /Logo -->
+          <h4 class="mb-2">Book your place and be part..  🚀</h4>
+          <!--<p class="mb-4">Make your app management easy and fun!</p>-->
+            <form id="formAuthentication" class="mb-3" action="https://www.towngwiss.com/register" method="POST">
+            <input type="hidden" name="_token" value="baMNVCjejZUeg95dDyd2gmpS8YoGh8zitejd0ECI">            <div class="mb-3">
+              <label for="name" class="form-label">Name</label>
+              <input type="text" class="form-control " value="" id="name" name="name" placeholder="Name" autofocus="">
+              <div class="invalid-feedback">
+                
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="surname" class="form-label">Whatsapp Number</label>
+              <span class="">+256 UG</span>
+              <input type="text" class="form-control " value="" id="surname" name="number" placeholder="Number" autofocus="">
+              <div class="invalid-feedback">
+                
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="text" class="form-control " value="" id="email" name="email" placeholder="Email">
+              <div class="invalid-feedback">
+                
+              </div>
+            </div>            
+            <hr>
+            <p class="text-center mt-4 mb-4">
+              <span>By creating an account, you agree to our <a data-bs-toggle="modal" data-bs-target="#kullanimSozlesmesiTR" href="#">Usage Agreement</a>.</span>
+            </p>
+
+            <div class="mb-3">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="terms-conditions" name="terms" />
+                <label class="form-check-label" for="terms-conditions">
+                  I agree to
+                  <a href="javascript:void(0);">privacy policy & terms</a>
+                </label>
+              </div>
+            </div>
+            <button class="btn btn-primary d-grid w-100">Continue</button>
+          </form>
+
+            <div class="icons-container">
+              <div class="telegram">
+                  <div class="icon-wrapper">
+                      <i class="bx bxl-telegram"></i>
+                  </div>
+              </div>
+              <div class="whatsapp">
+                  <div class="icon-wrapper">
+                      <i class="bx bxl-whatsapp"></i>
+                  </div>
+              </div>
+              <div href="https://www.tiktok.com/@thewolfoffashion;" class="instagram">
+                  <div class="icon-wrapper">
+                      <i class="bx bxl-instagram-alt"></i>
+                  </div>
+              </div>
+              <div class="tiktok">
+                  <a href="https://www.tiktok.com/@thewolfoffashion;">
+                      <div class="icon-wrapper">
+                      <i class="bx bxl-tiktok"></i>
+                  </div>
+                  </a>
+              </div>
+            </div>
+         </div>
+       </div>
+       <!-- /Register -->
+      </div>
+
+<!-- Content -->
+
+<!-- Core JS -->
+<!-- build:js assets/vendor/js/core.js -->
+<script src="https://www.towngwiss.com/assets/vendor/libs/jquery/jquery.js"></script>
+<script>
+    if(readCookie('userLoginID')){
+        $('#email').val(readCookie('userLoginID'))
+        $('#remember-me').prop('checked',true)
+    }
+    $('#remember-me').change(()=>{
+        if($('#remember-me').prop('checked')===true){
+            createCookie('userLoginID',$('#email').val(),9999)
+        }else{
+            eraseCookie('userLoginID')
+        }
+
+    })
+    function createCookie(name, value, days) {
+        var expires;
+
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toGMTString();
+        } else {
+            expires = "";
+        }
+        document.cookie = encodeURIComponent(name) + "=" + encodeURIComponent(value) + expires + "; path=/";
+    }
+
+    function readCookie(name) {
+        var nameEQ = encodeURIComponent(name) + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) === ' ')
+                c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) === 0)
+                return decodeURIComponent(c.substring(nameEQ.length, c.length));
+        }
+        return null;
+    }
+
+    function eraseCookie(name) {
+        createCookie(name, "", -1);
+    }
+</script>
+
+
+<script>
+  let photos = [
+    {
+      "url": "https://static-gcp.freepikcompany.com/web-app/media/freepik-1-2000.webp",
+      "preview": "https://static-gcp.freepikcompany.com/web-app/media/freepik-1-780.webp",
+    },
+    {
+      "url": "https://static-gcp.freepikcompany.com/web-app/media/freepik-2-2000.webp",
+      "preview": "https://static-gcp.freepikcompany.com/web-app/media/freepik-2-780.webp",
+    },
+    {
+      "url": "https://static-gcp.freepikcompany.com/web-app/media/freepik-3-2000.webp",
+      "preview": "https://static-gcp.freepikcompany.com/web-app/media/freepik-3-780.webp",
+    },
+    {
+      "url": "https://static-gcp.freepikcompany.com/web-app/media/freepik-5-2000.webp",
+      "preview": "https://static-gcp.freepikcompany.com/web-app/media/freepik-5-780.webp",
+    },
+    {
+      "url": "https://static-gcp.freepikcompany.com/web-app/media/freepik-6-2000.webp",
+      "preview": "https://static-gcp.freepikcompany.com/web-app/media/freepik-6-780.webp",
+    },
+    {
+      "url": "https://static-gcp.freepikcompany.com/web-app/media/freepik-7-2000.webp",
+      "preview": "https://static-gcp.freepikcompany.com/web-app/media/freepik-7-780.webp",
+    },
+    {
+      "url": "https://static-gcp.freepikcompany.com/web-app/media/freepik-8-2000.webp",
+      "preview": "https://static-gcp.freepikcompany.com/web-app/media/freepik-8-780.webp",
+    },
+    {
+      "url": "https://static-gcp.freepikcompany.com/web-app/media/freepik-11-2000.webp",
+      "preview": "https://static-gcp.freepikcompany.com/web-app/media/freepik-11-780.webp",
+    },
+    {
+      "url": "https://static-gcp.freepikcompany.com/web-app/media/freepik-18-2000.webp",
+      "preview": "https://static-gcp.freepikcompany.com/web-app/media/freepik-18-780.webp",
+    },
+    {
+      "url": "https://static-gcp.freepikcompany.com/web-app/media/freepik-23-2000.webp",
+      "preview": "https://static-gcp.freepikcompany.com/web-app/media/freepik-23-780.webp",
+    },
+    {
+      "url": "https://static-gcp.freepikcompany.com/web-app/media/freepik-24-2000.webp",
+      "preview": "https://static-gcp.freepikcompany.com/web-app/media/freepik-24-780.webp",
+    },
+    {
+      "url": "https://static-gcp.freepikcompany.com/web-app/media/freepik-25-2000.webp",
+      "preview": "https://static-gcp.freepikcompany.com/web-app/media/freepik-25-780.webp",
+    },
+    {
+      "url": "https://static-gcp.freepikcompany.com/web-app/media/freepik-27-2000.webp",
+      "preview": "https://static-gcp.freepikcompany.com/web-app/media/freepik-27-780.webp",
+    }
+  ];
+  function changeContainerImage() {
+    const container = document.querySelector('.image-container .image-link');
+    if (!container) return;
+      
+    const randomPhoto = photos[Math.floor(Math.random() * photos.length)];
+    container.style.backgroundImage = `url(${randomPhoto.preview})`;
+      container.href = randomPhoto.link;
+  }
+
+    // Initialize
+  document.addEventListener('DOMContentLoaded', function() {
+      // Set initial image
+      changeContainerImage();
+      
+      // Auto-change every 5 seconds
+      setInterval(changeContainerImage, 25000);
+  });
+</script>
+
+
+
+    <div style="background-color: rgb(255, 255, 255); border: 1px solid rgb(204, 204, 204); box-shadow: rgba(0, 0, 0, 0.2) 2px 2px 3px; position: absolute; transition: visibility linear 0.3s, opacity 0.3s linear; opacity: 0; visibility: hidden; z-index: 2000000000; left: 0px; top: -10000px;">
+      <div style="width: 100%; height: 100%; position: fixed; top: 0px; left: 0px; z-index: 2000000000; background-color: rgb(255, 255, 255); opacity: 0.05;"></div>
+      <div class="g-recaptcha-bubble-arrow" style="border: 11px solid transparent; width: 0px; height: 0px; position: absolute; pointer-events: none; margin-top: -11px; z-index: 2000000000;"></div>
+      <div class="g-recaptcha-bubble-arrow" style="border: 10px solid transparent; width: 0px; height: 0px; position: absolute; pointer-events: none; margin-top: -10px; z-index: 2000000000;"></div>
+      <div style="z-index: 2000000000; position: relative;">
+      <iframe title="recaptcha challenge expires in two minutes" name="c-gmdhiw6bj50r" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox allow-storage-access-by-user-activation" src="https://www.google.com/recaptcha/api2/bframe?hl=en&amp;v=jt8Oh2-Ue1u7nEbJQUIdocyd&amp;k=6Le11qEqAAAAAMDSiJGdhHojIw9aBHBVj0t6JCBV" style="width: 100%; height: 100%;"></iframe>
+      </div> 
+    </div>
+
+  </body>
+</body>
+</html>
