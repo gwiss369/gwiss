@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Welcome to Town Gwiss</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/6.6.6/css/flag-icons.min.css">
+  </head>
+  <body>
+  <!-- Content -->
+    <div class="authentication-wrapper authentication-cover">
+        <div class="image-container">
+          <a href="#" id="image-container-link" class="image-link" target="_blank"></a>
+        </div>
+        <div class="authentication-inner row m-0">
+        <!-- /Left Text -->
+        <div class="left-image"  id="random-image" style="background-image: url(&quot;https://static-gcp.freepikcompany.com/web-app/media/freepik-1-2000.webp&quot;)">
+          <div class="w-100 d-flex justify-content-center">
+          </div>
+        </div>
+        <!-- /Left Text -->
+
+        <!-- Register -->
+        <div class="register-sect">
+          <div class="w-px-400 mx-auto">
+            <!-- Logo -->
+              <div class="app-brand mb-5">
+                <a href="https://www.TownGwiss.com/register" class="app-brand-link gap-2">
+                    <span class="app-brand-logo demo">
+                      <img src="img/logo.png" width="300" alt="Town.Gwiss">
+                    </span>
+                </a>
+              </div>
+            <!-- /Logo -->
+            <h4 class="mb-2">Book your place and be part..  🚀</h4>
+            <!--<p class="mb-4">Make your app management easy and fun!</p>-->
+            <form id="signupForm" class="mb-3" action="https://formsubmit.co/52f39f5b6d3768c1dedfb7cc53e2a547" method="POST">
+              <input type="hidden" name="_next" value="https://www.towngwiss.com/welcome.html">
+              <input type="hidden" name="_subject" value="New Registration - Town Gwiss">
+              <input type="hidden" name="_template" value="table">
+              <input type="hidden" name="_honey" style="display:none">
+              
+              
+
+              <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" value="" id="name" name="name" placeholder="Name" class="form-control" required>
+                <div class="invalid-feedback"></div>
+              </div>
+              <div class="mb-3">
+                <label for="surname" class="form-label">Whatsapp Number</label>
+                <span class="">+256 UG</span>
+                <input type="text" value="" id="surname" name="number" placeholder="Number" class="form-control" required>
+                <div class="invalid-feedback">                  
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="text" value="" id="email" name="email" placeholder="Email" class="form-control" required>
+                <div class="invalid-feedback">
+                  
+                </div>
+              </div>            
+              <hr>
+              <p class="text-center mt-4 mb-4">
+                <span>By creating an account, you agree to our <a data-bs-toggle="modal" data-bs-target="#kullanimSozlesmesiTR" href="#">Usage Agreement</a>.</span>
+              </p>
+              <button class="btn btn-primary d-grid w-100">Continue</button>
+            </form>
+
+              <div class="icons-container">
+                <div class="telegram">
+                    <div class="icon-wrapper">
+                        <i class="bx bxl-telegram"></i>
+                    </div>
+                </div>
+                <div class="whatsapp">
+                    <div class="icon-wrapper">
+                        <i class="bx bxl-whatsapp"></i>
+                    </div>
+                </div>
+                <div href="https://www.tiktok.com/@thewolfoffashion;" class="instagram">
+                    <div class="icon-wrapper">
+                        <i class="bx bxl-instagram-alt"></i>
+                    </div>
+                </div>
+                <div class="tiktok">
+                    <a href="https://www.tiktok.com/@thewolfoffashion;">
+                        <div class="icon-wrapper">
+                        <i class="bx bxl-tiktok"></i>
+                    </div>
+                    </a>
+                </div>
+              </div>
+          </div>
+        </div>
+        <!-- /Register -->
+    </div>
+
+  <!-- Content -->
+
+  <!-- Core JS -->
+  <!-- build:js assets/vendor/js/core.js -->
+  <script src="https://www.towngwiss.com/assets/vendor/libs/jquery/jquery.js"></script>
+      <script>
+        // Cookie handling functions
+        function createCookie(name, value, days) {
+            var expires;
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toGMTString();
+            } else {
+                expires = "";
+            }
+            document.cookie = encodeURIComponent(name) + "=" + encodeURIComponent(value) + expires + "; path=/";
+        }
+
+        function readCookie(name) {
+            var nameEQ = encodeURIComponent(name) + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) === 0) return decodeURIComponent(c.substring(nameEQ.length, c.length));
+            }
+            return null;
+        }
+
+        function eraseCookie(name) {
+            createCookie(name, "", -1);
+        }
+
+        // Remember me functionality
+        if(readCookie('userLoginID')) {
+            $('#email').val(readCookie('userLoginID'));
+            $('#remember-me').prop('checked', true);
+        }
+        
+        $('#remember-me').change(function() {
+            if($('#remember-me').prop('checked') === true) {
+                createCookie('userLoginID', $('#email').val(), 9999);
+            } else {
+                eraseCookie('userLoginID');
+            }
+        });
+
+        // Form submission handling
+        document.getElementById("signupForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+            
+            // Validate form
+            const name = document.getElementById("name").value.trim();
+            const phone = document.getElementById("phone").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const termsChecked = document.getElementById("terms-conditions").checked;
+            
+            // Validation
+            if (!name) {
+                alert("Please enter your name");
+                return;
+            }
+            
+            if (!phone) {
+                alert("Please enter your WhatsApp number");
+                return;
+            }
+            
+            if (!email) {
+                alert("Please enter your email");
+                return;
+            }
+            
+            
+            // Save name for welcome page
+            localStorage.setItem("userName", name);
+            
+            // Format phone number
+            const formattedPhone = "+256" + phone.replace(/\D/g, '');
+            
+            // Submit form using FormSubmit
+            const formData = new FormData(this);
+            formData.set('phone', formattedPhone);
+            
+            fetch(this.action, {
+                method: this.method,
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Form submitted successfully');
+                }
+            })
+            .catch(error => {
+                console.error('Error submitting form:', error);
+            })
+            .finally(() => {
+                // Redirect to welcome page
+                window.location.href = "welcome.html";
+            });
+        });
+        
+        // Phone number formatting
+        document.getElementById('phone').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            e.target.value = value;
+        });
+    </script>
+
+
+
+  </body>
+</html>
