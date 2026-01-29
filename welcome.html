@@ -1,0 +1,542 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to the Inner Circle | Maison</title>
+  <meta name="description" content="You're in. Thank you for joining us on this journey. Your place among the first to experience our vision has been reserved.">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&amp;family=Montserrat:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* CSS Variables */
+    :root {
+      --background: hsl(40, 20%, 98%);
+      --foreground: hsl(0, 0%, 8%);
+      --card: hsl(40, 15%, 96%);
+      --card-foreground: hsl(0, 0%, 8%);
+      --muted-foreground: hsl(0, 0%, 45%);
+      --accent: hsl(38, 60%, 50%);
+      --border: hsl(40, 15%, 88%);
+      --bg-color: #FAFAF9;
+      --text-primary: #111111;
+      --text-secondary: #555555;
+      --accent-color: #D4AF37; /* Muted Gold */
+      --accent-hover: #b5922b;
+      --white: #FFFFFF;
+      --spacing-unit: 1rem;
+      --container-width: 1200px;
+      --transition: all 0.3s ease;
+      
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Inter', system-ui, sans-serif;
+      --letter-spacing-wide: 0.2em;
+      --letter-spacing-wider: 0.35em;
+    }
+
+    /* Reset */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Base Styles */
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--background);
+      color: var(--foreground);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-serif);
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Typography Classes */
+    .heading-display {
+      font-family: var(--font-serif);
+      font-size: clamp(3rem, 10vw, 8rem);
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+
+    .heading-editorial {
+      font-family: var(--font-serif);
+      font-size: clamp(1.875rem, 5vw, 3rem);
+      font-weight: 300;
+      font-style: italic;
+    }
+
+    .text-overline {
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: var(--letter-spacing-wider);
+      font-weight: 500;
+    }
+
+    .text-body-elegant {
+      font-family: var(--font-sans);
+      font-size: clamp(0.875rem, 2vw, 1rem);
+      font-weight: 300;
+      line-height: 1.8;
+      letter-spacing: 0.025em;
+    }
+
+    
+    .text-muted {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
+    .gold-accent {
+      color: var(--accent);
+    }
+
+
+    /* Link Underline Animation */
+    .link-underline {
+      position: relative;
+      display: inline-block;
+    }
+
+    .link-underline::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      transform: scaleX(0);
+      height: 1px;
+      bottom: 0;
+      left: 0;
+      background-color: currentColor;
+      transform-origin: bottom right;
+      transition: transform 0.3s ease;
+    }
+
+    .link-underline:hover::after {
+      transform: scaleX(1);
+      transform-origin: bottom left;
+    }
+
+    /* Animations */
+    @keyframes fade-up {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes line-grow {
+      from {
+        transform: scaleX(0);
+      }
+      to {
+        transform: scaleX(1);
+      }
+    }
+
+    .animate-fade-up {
+      animation: fade-up 0.8s ease-out forwards;
+    }
+
+    .animate-fade-up-delay-1 {
+      opacity: 0;
+      animation: fade-up 0.8s ease-out 0.2s forwards;
+    }
+
+    .animate-fade-up-delay-2 {
+      opacity: 0;
+      animation: fade-up 0.8s ease-out 0.4s forwards;
+    }
+
+    .animate-fade-up-delay-3 {
+      opacity: 0;
+      animation: fade-up 0.8s ease-out 0.6s forwards;
+    }
+
+    .animate-line-grow {
+      transform: scaleX(0);
+      animation: line-grow 1s ease-out 0.8s forwards;
+    }
+      /*Header*/
+    .header-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 6rem 1.5rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero-content {
+      max-width: 48rem;
+      margin: 0 auto;
+    }
+
+    .hero-content > * + * {
+      margin-top: 2rem;
+    }
+
+    .hero-body {
+      max-width: 36rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 3rem;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 4rem;
+      background: linear-gradient(to bottom, transparent, var(--border), var(--border));
+    }
+
+    /* Sections */
+    section {
+      padding: 2rem 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .feature-icon {
+        font-size: 0.95rem;
+        margin-bottom: 1rem;
+        color: var(--accent-color);
+        display: inline-block;
+        border: 1px solid var(--accent-color);
+        width: 40px;
+        height: 40px;
+        line-height: 38px;
+        border-radius: 50%;
+    }
+
+    @media (min-width: 768px) {
+      section {
+        padding: 8rem 1.5rem;
+      }
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .section-header {
+        margin-bottom: 3rem;
+      }
+    }
+
+    .section-header .text-overline {
+      margin-bottom: 1rem;
+    }
+
+    /* Expectations Grid */
+    .expectations-container {
+      max-width: 72rem;
+      margin: 0 auto;
+    }
+
+    .expectations-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .expectations-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 3rem;
+      }
+    }
+
+    .card-fashion {
+      padding: 2rem;
+      border: 1px solid var(--border);
+      background-color: rgba(251, 250, 249, 0.5);
+      backdrop-filter: blur(8px);
+      text-align: center;
+    }
+
+    @media (min-width: 768px) {
+      .card-fashion {
+        padding: 3rem;
+      }
+    }
+
+    .card-number {
+      display: block;
+      margin-bottom: 1.5rem;
+    }
+
+    .card-title {
+      font-family: var(--font-serif);
+      font-size: clamp(1.25rem, 3vw, 1.5rem);
+      font-weight: 300;
+      margin-bottom: 1rem;
+    }
+
+    /* Follow Section */
+    .follow-section {
+      background-color: rgba(251, 250, 249, 0.3);
+    }
+
+    .follow-container {
+      max-width: 42rem;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .follow-container .heading-editorial {
+      margin-bottom: 2rem;
+    }
+
+    .follow-container .text-body-elegant {
+      margin-bottom: 3rem;
+    }
+
+    .social-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 20px;
+      margin-top: 40px;
+    }
+    .social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: white;
+      color: var(--primary);
+      text-decoration: none;
+      transition: all 0.3s;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+
+    .social-link:hover {
+        background-color: var(--accent);
+        color: white;
+        transform: translateY(-3px);
+    }
+
+    .social-link svg {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+
+    /* Footer */
+    footer {
+      padding: 3rem 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-container {
+      max-width: 72rem;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      text-align: center;
+    }
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      display: inline-block;
+    }
+
+    @media (min-width: 768px) {
+      .footer-container {
+        flex-direction: row;
+        text-align: left;
+      }
+    }
+
+    .footer-link {
+      transition: color 0.3s ease;
+    }
+
+    .footer-link:hover {
+      color: var(--foreground);
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <!-- Hero Section -->
+    <section class="hero" style="border-top: none;">
+      <div class="hero-content">
+        <!-- Overline -->     
+        <div class="app-brand mb-5">
+          <a href="#" class="app-brand-link gap-2">
+            <span class="app-brand-logo demo">
+              <img src="./img/black.png" width="100" alt="Town.Gwiss">
+            </span>
+          </a>
+          <div class="header-logo">TOWN GWISS</div>
+        </div>
+
+        <!-- Main Heading -->
+        <h3 class="heading-display animate-fade-up-delay-1">
+          You're enlisted.
+        </h3>
+
+        <p id="userName" class="text-overline gold-accent animate-fade-up">
+          <!-- Name will be injected here -->
+        </p>
+
+
+        <p class="text-overline gold-accent animate-fade-up">
+          Welcome to our Inner Circle
+        </p>
+
+        <!-- Subheading -->
+        <p class="heading-editorial text-muted animate-fade-up-delay-2">
+          Thank you for joining us on this journey
+          <br>
+          Your place among the first to experience our vision has been reserved. 
+        </p>
+      </div>
+
+      <!-- Scroll Indicator -->
+      <div class="scroll-indicator animate-fade-up-delay-3">
+        <div class="scroll-line"></div>
+      </div>
+    </section>
+
+    <!-- What to Expect Section -->
+    <section>
+      <div class="expectations-container">
+        <div class="section-header">
+          <p class="text-overline text-muted">
+            What Awaits
+          </p>
+          <h2 class="heading-editorial">
+            The Privileges of 
+          </h2>
+        </div>
+
+        <div class="expectations-grid">
+          <!-- Card 1 -->
+          <div class="card-fashion">
+            <div class="feature-icon">01</div>
+            <h3 class="card-title">Exclusive Access</h3>
+            <p class="text-body-elegant text-muted">
+              Be the first to explore our curated collections before the world
+            </p>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="card-fashion">
+            <div class="feature-icon">02</div>
+            <h3 class="card-title">Exclusive Pricing</h3>
+            <p class="text-body-elegant text-muted">
+             Shortlist members receive a special introductory discount on their first order, available only to subscribers.
+            </p>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="card-fashion">
+            <div class="feature-icon">03</div>
+            <h3 class="card-title">Priority Invitations</h3>
+            <p class="text-body-elegant text-muted">
+              VIP access to private events, shows, and limited releases
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Follow Section -->
+    <section class="follow-section">
+      <div class="follow-container">
+        <p class="text-overline text-muted">
+          Stay tuned!
+        </p>
+         <h2 class="heading-editorial">
+          Launching soon. Very soon.
+        </h2>
+        <p class="text-body-elegant text-muted">
+          We'll notify you when we launch. Stay connected!
+        </p>
+
+        <div class="social-links">
+          <a href="https://www.instagram.com/town.gwiss/" class="social-link" aria-label="Follow on Instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="#" class="social-link">
+            <i class="fa-brands fa-telegram"></i>
+          </a>
+          <a href="https://www.tiktok.com/@gwiss_tv" class="social-link">
+          <i class="fab fa-tiktok"></i>
+          </a>
+          <a href="#" class="social-link">
+            <i class="fa-brands fa-whatsapp"></i>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-container">
+        <div class="footer-logo">TOWN GWISS</div>
+        <p class="text-overline text-muted">
+          © 2026 Town Gwiss — All Rights Reserved
+        </p>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const name = localStorage.getItem("userName");
+
+      document.getElementById("userName").textContent =
+        name ? name : "Welcome, Guest";
+    });
+  </script>
+</body>
+</html>
