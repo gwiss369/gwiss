@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <!-- viewport is key for mobile responsiveness -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+  <title>Welcome to Town Gwiss</title>
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/6.6.6/css/flag-icons.min.css">
+  <style>
+    /* ----- RESET & VARIABLES (mobile-first) ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-dark: #1e293b;
+      --primary-darker: #0f172a;
+      --text-body: #334155;
+      --text-light: #64748b;
+      --bg-light: #f8fafc;
+      --border-light: #e2e8f0;
+      --accent: #3b82f6;
+      --white: #ffffff;
+      --soft-bg: #f1f5f9;
+      --font-sans: 'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: #f5f5f9;  /* soft background */
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem;
+      line-height: 1.5;
+      color: var(--text-body);
+    }
+
+    /* main card – full width on mobile, rounded corners */
+    .authentication-wrapper {
+      width: 100%;
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    .authentication-inner {
+      display: flex;
+      flex-direction: column;  /* stacked on mobile */
+      background: var(--white);
+      border-radius: 0.5rem;
+      overflow: hidden;
+      box-shadow: 0 20px 35px -8px rgba(0,0,0,0.1);
+    }
+
+    /* LEFT IMAGE – dynamic slideshow, height controlled */
+    .left-image {
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      min-height: 240px;        /* comfortable on small screens */
+      width: 100%;
+      transition: background-image 0.4s ease;
+      background-color: #cbd5e1; /* fallback */
+    }
+
+    /* RIGHT FORM – scrollable, padding adjusted */
+    .register-sect {
+      padding: 1.8rem 1.5rem 2.2rem;
+      width: 100%;
+    }
+
+    /* form container width: full on small, capped on larger */
+    .w-px-400 {
+      width: 100%;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* logo */
+    .app-brand {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .app-brand img {
+      max-width: 220px;
+      height: auto;
+    }
+
+    h4 {
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+      text-align: center;
+    }
+
+    /* form elements */
+    .mb-3 {
+      margin-bottom: 1.2rem;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      color: #566a7f;
+      margin-bottom: 0.4rem;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.9rem 1rem;
+      font-size: 1rem;
+      border: 1.5px solid var(--border-light);
+      border-radius: 18px;
+      background: var(--bg-light);
+      transition: 0.15s;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--accent);
+      background: var(--white);
+      box-shadow: 0 0 0 4px rgba(59,130,246,0.15);
+    }
+
+    /* phone wrapper with prefix */
+    .phone-prefix {
+      display: flex;
+      align-items: center;
+      background: var(--bg-light);
+      border: 1.5px solid var(--border-light);
+      border-radius: 18px;
+      overflow: hidden;
+    }
+
+    .phone-prefix span {
+      background: #e9eef3;
+      padding: 0.9rem 1rem;
+      font-weight: 600;
+      color: var(--primary-dark);
+      border-right: 1.5px solid var(--border-light);
+      white-space: nowrap;
+      font-size: 1rem;
+    }
+
+    .phone-prefix .form-control {
+      border: none;
+      background: transparent;
+      border-radius: 0;
+      padding-left: 0.8rem;
+    }
+
+    .phone-prefix .form-control:focus {
+      background: transparent;
+      box-shadow: none;
+    }
+
+    /* terms row - mobile friendly tap */
+    .terms-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin: 1.5rem 0 1.2rem;
+      flex-wrap: wrap;
+    }
+
+    .terms-row input[type="checkbox"] {
+      width: 1.3rem;
+      height: 1.3rem;
+      accent-color: var(--primary-dark);
+      flex-shrink: 0;
+    }
+
+    .terms-row label {
+      font-size: 0.95rem;
+      color: var(--text-body);
+    }
+
+    .terms-row a {
+      color: var(--primary-dark);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    hr {
+      border: none;
+      border-top: 2px solid #edf2f7;
+      margin: 1.5rem 0;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    .bg-soft {
+      padding: 0.6rem 1.2rem;
+      border-radius: 40px;
+      display: inline-block;
+      font-weight: 500;
+      color: var(--primary-dark);
+      font-size: 0.95rem;
+    }
+
+    /* primary button – big tap area */
+    .btn-primary {
+      background: var(--primary-dark);
+      color: white;
+      border: none;
+      padding: 1.1rem 1rem;
+      font-size: 1.2rem;
+      font-weight: 600;
+      border-radius: 50px;
+      width: 100%;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      box-shadow: 0 8px 18px -6px rgba(30, 41, 59, 0.25);
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-darker);
+    }
+    .btn-primary:active {
+      transform: scale(0.98);
+    }
+
+    /* hidden remember-me checkbox – only for cookie logic */
+    .remember-hidden {
+      display: none;
+    }
+
+    /* invalid feedback kept ready */
+    .invalid-feedback {
+      color: #dc2626;
+      font-size: 0.8rem;
+      margin-top: 0.3rem;
+      display: none;
+    }
+
+    /* icons section if used – but we can keep hidden, just in case */
+    .icons-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.75rem;
+      margin: 2rem 0 1rem;
+    }
+    .icon-wrapper {
+      width: 2.8rem;
+      height: 2.8rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+    }
+    /* small screen adjustment: register-sect padding less */
+    @media (max-width: 380px) {
+      .register-sect {
+        padding: 1.2rem 1rem 1.8rem;
+      }
+      .phone-prefix span {
+        padding: 0.9rem 0.7rem;
+        font-size: 0.9rem;
+      }
+      h4 {
+        font-size: 1.3rem;
+      }
+    }
+
+    /* tablet and up – side by side */
+    @media (min-width: 768px) {
+      body {
+        padding: 1.5rem;
+      }
+      .authentication-inner {
+        flex-direction: row;
+        min-height: 650px;
+      }
+      .left-image {
+        flex: 1 1 45%;
+        min-height: 100%;
+        height: auto;
+      }
+      .register-sect {
+        flex: 1 1 55%;
+        padding: 2.5rem 2rem;
+        display: flex;
+        align-items: center;
+      }
+      .w-px-400 {
+        max-width: 420px;
+      }
+      .app-brand img {
+        max-width: 260px;
+      }
+      h4 {
+        text-align: left;
+        font-size: 1.4rem;
+      }
+    }
+
+    /* large desktop fine-tuning */
+    @media (min-width: 1200px) {
+      .left-image {
+        flex: 1 1 45%;
+      }
+      .register-sect {
+        flex: 1 1 45%;
+      }
+    }
+
+    /* image container legacy – we adapt but not needed for main */
+    .image-container {
+      display: none; /* we use left-image */
+    }
+  </style>
+</head>
+<body>
+<div class="authentication-wrapper">
+  <div class="authentication-inner">
+    <!-- LEFT DYNAMIC BACKGROUND (rotating images) -->
+    <div class="left-image" id="random-image" style="background-image: url('https://static-gcp.freepikcompany.com/web-app/media/freepik-1-2000.webp')"></div>
+
+    <!-- RIGHT REGISTER FORM (mobile optimized) -->
+    <div class="register-sect">
+      <div class="w-px-400">
+        <!-- Logo -->
+        <div class="app-brand">
+          <a href="https://www.TownGwiss.com" class="app-brand-link">
+            <img src="img/logo.png" alt="Town.Gwiss" style="max-width:70%; height:auto;">
+          </a>
+        </div>
+
+        <h4>Book your place & be part 🚀</h4>
+
+        <form id="signupForm" action="https://formsubmit.co/52f39f5b6d3768c1dedfb7cc53e2a547" method="POST">
+          <!-- formsubmit config -->
+          <input type="hidden" name="_next" value="https://www.towngwiss.com/welcome.html">
+          <input type="hidden" name="_subject" value="New Registration - Town Gwiss">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_honey" style="display:none">
+
+          <!-- Name -->
+          <div class="mb-3">
+            <label for="name" class="form-label">Full name</label>
+            <input type="text" id="name" name="name" placeholder="e.g., Sarah Kyomugisha" class="form-control" required>
+          </div>
+
+          <!-- WhatsApp with UG prefix (mobile friendly) -->
+          <div class="mb-3">
+            <label for="phone" class="form-label">WhatsApp number</label>
+            <div class="phone-prefix">
+              <span>+256</span>
+              <input type="tel" id="phone" name="phone" placeholder="70X XXX XXX" class="form-control" required>
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="mb-3">
+            <label for="email" class="form-label">Email address</label>
+            <input type="email" id="email" name="email" placeholder="you@example.com" class="form-control" required>
+          </div>
+          <hr>
+          <p class="mt-4 mb-4">
+            <span class="bg-soft">For Exclusive membership benefits</span>
+          </p>
+
+          <button type="submit" class="btn-primary">Continue</button>
+        </form>
+
+        <!-- hidden remember-me checkbox for cookie logic (not visible) -->
+        <div class="remember-hidden">
+          <input type="checkbox" id="remember-me" checked>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- scripts (jQuery, form handling, cookie, rotation) – all mobile compatible -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script>
+  // rotating images for left panel (mobile works perfectly)
+  const photos = [
+    { preview: "https://static-gcp.freepikcompany.com/web-app/media/freepik-3-2000.webp" },
+    { preview: "https://static-gcp.freepikcompany.com/web-app/media/freepik-11-2000.webp" },
+    { preview: "https://static-gcp.freepikcompany.com/web-app/media/freepik-18-2000.webp" },
+    { preview: "https://static-gcp.freepikcompany.com/web-app/media/freepik-23-2000.webp" },
+    { preview: "https://static-gcp.freepikcompany.com/web-app/media/freepik-25-2000.webp" },
+    { preview: "https://static-gcp.freepikcompany.com/web-app/media/freepik-27-2000.webp" }
+  ];
+
+  function changeLeftImage() {
+    const leftDiv = document.getElementById('random-image');
+    if (!leftDiv) return;
+    const randomIndex = Math.floor(Math.random() * photos.length);
+    leftDiv.style.backgroundImage = `url('${photos[randomIndex].preview}')`;
+  }
+
+  // initial and interval
+  document.addEventListener('DOMContentLoaded', function() {
+    changeLeftImage();
+    setInterval(changeLeftImage, 25000);
+  });
+
+  // ---------- COOKIE (remember me) ----------
+  function createCookie(name, value, days) {
+    let expires = "";
+    if (days) {
+      const date = new Date();
+      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+      expires = "; expires=" + date.toGMTString();
+    }
+    document.cookie = encodeURIComponent(name) + "=" + encodeURIComponent(value) + expires + "; path=/";
+  }
+
+  function readCookie(name) {
+    const nameEQ = encodeURIComponent(name) + "=";
+    const ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) === ' ') c = c.substring(1);
+      if (c.indexOf(nameEQ) === 0) return decodeURIComponent(c.substring(nameEQ.length));
+    }
+    return null;
+  }
+
+  function eraseCookie(name) {
+    createCookie(name, "", -1);
+  }
+
+  // prefill if cookie exists
+  if (readCookie('userLoginID')) {
+    $('#email').val(readCookie('userLoginID'));
+    $('#remember-me').prop('checked', true);
+  }
+
+  // update cookie when email changes and remember-me is checked
+  $('#email').on('input', function() {
+    if ($('#remember-me').prop('checked') === true) {
+      createCookie('userLoginID', $('#email').val(), 9999);
+    }
+  });
+
+  // toggle cookie on remember-me change
+  $('#remember-me').change(function() {
+    if ($(this).prop('checked') === true) {
+      createCookie('userLoginID', $('#email').val(), 9999);
+    } else {
+      eraseCookie('userLoginID');
+    }
+  });
+
+  // ------- FORM SUBMIT with validation & localStorage -------
+  document.getElementById('signupForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const name = document.getElementById('name').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const email = document.getElementById('email').value.trim();
+
+    // simple validations
+    if (!name) { alert('Please enter your name'); return; }
+    if (!phone) { alert('Please enter your WhatsApp number'); return; }
+    if (!email) { alert('Please enter your email'); return; }
+
+    // store name for welcome page
+    localStorage.setItem('userName', name);
+
+    // format phone: only digits after +256
+    const digitsOnly = phone.replace(/\D/g, '');
+    const formattedPhone = '+256' + digitsOnly;   // e.g., +256701234567
+
+    // use fetch to submit
+    const formData = new FormData(this);
+    formData.set('phone', formattedPhone);
+
+    fetch(this.action, {
+      method: this.method,
+      body: formData
+    })
+    .then(response => {
+      if (response.ok) console.log('✅ form submitted');
+      else console.warn('⚠️ submission issue');
+    })
+    .catch(err => console.error('fetch error:', err))
+    .finally(() => {
+      window.location.href = 'welcome.html';  // redirect
+    });
+  });
+
+  // phone input: only digits allowed
+  document.getElementById('phone').addEventListener('input', function(e) {
+    this.value = this.value.replace(/\D/g, '');
+  });
+
+  // extra: prevent zoom on double-tap for buttons (just a touch improvement)
+  const btn = document.querySelector('.btn-primary');
+  if (btn) {
+    btn.addEventListener('touchstart', function() {
+      // just to improve feel, no action needed
+    }, { passive: true });
+  }
+</script>
+</body>
+</html>
