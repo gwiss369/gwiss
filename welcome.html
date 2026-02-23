@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to the Inner Circle | Maison</title>
+  <meta name="description" content="You're in. Thank you for joining us on this journey. Your place among the first to experience our vision has been reserved.">
+   <link rel="stylesheet" href="./welcome.css">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&amp;family=Montserrat:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+<body>
+  <main>
+    <!-- Hero Section -->
+    <section class="hero" style="border-top: none;">
+      <div class="hero-content">
+        <!-- Overline -->     
+        <div class="app-brand mb-5">
+          <a href="#" class="app-brand-link gap-2">
+            <span class="app-brand-logo demo">
+               <img src="./img/black.png" width="100" alt="Town.Gwiss">
+            </span>
+          </a>
+          <div class="header-logo">TOWN GWISS</div>
+        </div>
+        
+        <!-- Main Heading -->
+        <h3 id="userName" class="heading-display gold-accent" style="opacity:0; transform:translateY(20px); transition: all 0.8s ease;">
+          <!-- Name will be injected here -->
+        </h3>
+        <h5 class="text-overline animate-fade-up-delay-1">
+          You're enlisted.
+        </h5>
+
+        <p class="list-display gold-accent animate-fade-up">
+          Welcome to our Inner Circle
+        </p>
+
+        <!-- Subheading -->
+        <p class="text-body-elegant animate-fade-up-delay-2" style="max-width: 600px; margin: 0 auto;">
+          Thank you for joining us on this journey.<br>
+          You now walk among the first to witness & experience our vision.
+        </p>
+
+        <!-- Member counter badge (countdown) -->
+        <div class="member-badge" id="memberCounter">
+          <i class="fas fa-crown"></i> <span id="memberNumber">500</span> spots left
+        </div>
+      </div>
+
+      <!-- Scroll Indicator -->
+      <div class="scroll-indicator animate-fade-up-delay-3">
+        <div class="scroll-line"></div>
+      </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="cards-section">
+      <div class="section-header">
+        <p class="text-overline">what awaits</p>
+        <h2 class="heading-editorial">The Privileges of</h2>
+      </div>
+
+      <div class="benefits-grid expectations-grid">
+        <div class="double-grid">
+          <div class="benefit-card fade-up delay-1">
+            <div class="benefit-icon"><i class="fas fa-clock"></i></div>
+            <h3 class="benefit-title">Early Access</h3>
+            <div class="benefit-desc">Be the first to experience collections & drops before the world.</div>
+          </div>
+          <div class="benefit-card ">
+            <div class="benefit-icon"><i class="fas fa-user-tie"></i></div>
+            <h3 class="benefit-title">Talent Opportunities</h3>
+            <p class="benefit-desc">Members gain early visibility into curated career, collaboration, and professional opportunities, including roles, partnerships, or project-based engagements aligned with their skills and interests.</p>
+          </div>
+        </div>
+        <div class="double-grid">
+          <div class="benefit-card fade-up delay-2">
+            <div class="benefit-icon"><i class="fas fa-gem"></i></div>
+            <h3 class="benefit-title">Golden Editions</h3>
+            <div class="benefit-desc">Exclusive members-only releases and private viewings.</div>
+          </div>
+          <div class="benefit-card ">
+            <div class="benefit-icon"><i class="fas fa-chart-line"></i></div>
+            <h3 class="benefit-title">Business & Investment Access</h3>
+            <div class="benefit-desc">Invitations to explore strategic business partnerships and investment initiatives 
+              tied to our organization’s growth and innovation roadmap.</div>
+          </div>
+        </div>
+        <div class="double-grid">
+          <div class="benefit-card fade-up delay-3">
+            <div class="benefit-icon"><i class="fas fa-handshake"></i></div>
+            <h3 class="benefit-title">Inner Circle</h3>
+            <div class="benefit-desc">Direct connection to the vision — your voice shapes the journey.</div>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon"><i class="fas fa-hand-holding-dollar"></i></div>
+            <h3 class="benefit-title">Equity Participation</h3>
+            <div class="benefit-desc">
+              Opportunities for eligible members to receive equity or share-based participation, 
+              aligning you with long-term value creation.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Follow Section -->
+    <section class="follow-section">
+      <div class="follow-container">
+        <p class="text-overline text-muted">
+          Stay tuned!
+        </p>
+        <h2 class="heading-editorial">
+          Launching soon. Very soon.
+        </h2>
+        <p class="text-body-elegant text-muted">
+          We'll notify you when we launch. Stay connected!
+        </p>
+
+        <div class="social-links">
+          <a href="https://www.instagram.com/town.gwiss/" class="social-link" aria-label="Follow on Instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="#" class="social-link" aria-label="Follow on Telegram">
+            <i class="fa-brands fa-telegram"></i>
+          </a>
+          <a href="https://www.tiktok.com/@gwiss_tv" class="social-link" aria-label="Follow on TikTok">
+            <i class="fab fa-tiktok"></i>
+          </a>
+          <a href="#" class="social-link" aria-label="Follow on WhatsApp">
+            <i class="fa-brands fa-whatsapp"></i>
+          </a>
+        </div>
+
+        <button onclick="shareWelcome()" class="btn-share">
+          <i class="fas fa-share-alt"></i> SHARE THIS GWISS
+        </button>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-container">
+        <div class="footer-logo">TOWN GWISS</div>
+        <p class="text-overline text-muted">
+          © 2026 Town Gwiss — All Rights Reserved
+        </p>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    (function() {
+      // ---- User Name Display ----
+      const storedName = localStorage.getItem("userName");
+      const nameElement = document.getElementById("userName");
+
+      if (nameElement) {
+        const cleanName = storedName && storedName.trim().length > 0
+          ? storedName.trim()
+          : "Guest";
+        nameElement.textContent = cleanName;
+
+        // Smooth reveal
+        setTimeout(() => {
+          nameElement.style.opacity = "1";
+          nameElement.style.transform = "translateY(0)";
+        }, 300);
+
+        // Clear after use (prevents reuse on refresh)
+        localStorage.removeItem("userName");
+      }
+
+      // ---- Countdown of Spots Left ----
+      const TOTAL_SPOTS = 300;
+      const memberSpan = document.getElementById('memberNumber');
+      
+      // Keys for localStorage
+      const JOINED_KEY = 'hasJoinedBefore';
+      const REMAINING_KEY = 'remainingSpots';
+
+      // Check if this browser has already joined
+      let hasJoined = localStorage.getItem(JOINED_KEY) === 'true';
+
+      // Get current remaining spots (or initialize)
+      let remaining = parseInt(localStorage.getItem(REMAINING_KEY), 10);
+      if (isNaN(remaining)) {
+        // First visitor ever (for this browser) – start with TOTAL_SPOTS - 1 because they are joining now
+        remaining = TOTAL_SPOTS - 1;
+        localStorage.setItem(REMAINING_KEY, remaining);
+        localStorage.setItem(JOINED_KEY, 'true');
+      } else if (!hasJoined) {
+        // New visitor: decrement remaining, but not below 0
+        remaining = Math.max(0, remaining - 1);
+        localStorage.setItem(REMAINING_KEY, remaining);
+        localStorage.setItem(JOINED_KEY, 'true');
+      }
+      // If already joined, just use the current remaining value (no change)
+
+      // Display the number (with a simple count‑up animation from old to new)
+      if (memberSpan) {
+        // To animate, we need the previous value. We'll store it in a data attribute or just use a variable.
+        // For simplicity, we'll just set the text with a slight transition.
+        // But we can also do a count‑up effect.
+        const oldValue = parseInt(memberSpan.textContent, 10) || TOTAL_SPOTS;
+        const newValue = remaining;
+
+        // Animate if the value changed
+        if (oldValue !== newValue) {
+          let start = oldValue;
+          const end = newValue;
+          const duration = 1500; // ms
+          const increment = (end - start) / (duration / 16); // per frame (approx 60fps)
+          let current = start;
+
+          const timer = setInterval(() => {
+            current += increment;
+            if ((increment > 0 && current >= end) || (increment < 0 && current <= end)) {
+              memberSpan.textContent = end;
+              clearInterval(timer);
+            } else {
+              memberSpan.textContent = Math.round(current);
+            }
+          }, 16);
+        } else {
+          memberSpan.textContent = newValue;
+        }
+      }
+
+      // ---- Share Function ----
+      window.shareWelcome = function() {
+        const shareText = "I just joined Town Gwiss 🎉 Welcome to the Inner Circle!";
+        const shareUrl = "https://www.towngwiss.com";
+
+        if (navigator.share) {
+          navigator.share({
+            title: "Town Gwiss",
+            text: shareText,
+            url: shareUrl
+          }).catch(() => {});
+        } else {
+          navigator.clipboard.writeText(shareUrl).then(() => {
+            alert("Link copied! Share it with your friends 🚀");
+          }).catch(() => {
+            alert("Press Ctrl+C to copy the link: " + shareUrl);
+          });
+        }
+      };
+    })();
+  </script>
+</body>
+</html>
