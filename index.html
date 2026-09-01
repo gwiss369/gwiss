@@ -1,206 +1,416 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <!-- viewport is key for mobile responsiveness -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
-  <link rel="icon" type="image/png" sizes="32x32" href="./img/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="./img/favicon-16x16.png">
-  <title>Welcome to Town Gwiss</title>
-   <link rel="stylesheet" href="./register.css">
-  <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/6.6.6/css/flag-icons.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOWN GWISS — New Vibes. New Looks.</title>
+    <meta name="description" content="Discover Town Gwiss — premium fashion built around confidence, organised style and a worldwide vibe.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://towngwiss.com/">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- OPEN GRAPH -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="TOWN GWISS">
+    <meta property="og:title" content="TOWN GWISS — New Vibes. New Looks.">
+    <meta property="og:description" content="Discover Town Gwiss — premium fashion built around confidence, organised style and a worldwide vibe.">
+    <meta property="og:url" content="https://towngwiss.com/">
+    <meta property="og:image" content="https://towngwiss.com/images/hero.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="TOWN GWISS — New Vibes. New Looks.">
+
+    <!-- TWITTER / X -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="TOWN GWISS — New Vibes. New Looks.">
+    <meta name="twitter:description" content="Discover Town Gwiss — premium fashion built around confidence, organised style and a worldwide vibe.">
+    <meta name="twitter:image" content="https://towngwiss.com/images/hero.png">
 </head>
+
 <body>
-  <div class="authentication-wrapper">
-    <div class="authentication-inner">
-      <!-- LEFT DYNAMIC BACKGROUND (rotating images) -->
-      <div class="left-image" id="random-image" style="background-image: url('https://static-gcp.freepikcompany.com/web-app/media/freepik-1-2000.webp')"></div>
 
-      <!-- RIGHT REGISTER FORM (mobile optimized) -->
-      <div class="register-sect">
-        <div class="w-px-400">
-          <!-- Logo -->
-          <div class="app-brand">
-            <a href="https://www.TownGwiss.com" class="app-brand-link">
-              <img src="img/logo.png" alt="Town.Gwiss" style="max-width:70%; height:auto;">
-            </a>
-          </div>
+    <!-- HEADER -->
+    <header>
+        <div class="logo">TOWN <span>GWISS</span></div>
+        <div class="coming-soon">Coming Soon</div>
+    </header>
 
-          <h4>Book your place & be part 🚀</h4>
-
-          <form id="signupForm" action="https://formsubmit.co/0dac10d8b3a7275d636fbae4f67b8354" method="POST">
-            <!-- formsubmit config -->
-            <input type="hidden" name="_next" value="https://www.towngwiss.com/welcome.html">
-            <input type="hidden" name="_subject" value="New Registration - Town Gwiss">
-            <input type="hidden" name="_template" value="table">
-            <input type="hidden" name="_honey" style="display:none">
-
-            <!-- Name -->
-            <div class="mb-3">
-              <label for="name" class="form-label">Full name</label>
-              <input type="text" id="name" name="name" placeholder="e.g., Sarah Kyomugisha" class="form-control" required>
-            </div>
-
-            <!-- WhatsApp with UG prefix (mobile friendly) -->
-            <div class="mb-3">
-              <label for="phone" class="form-label">WhatsApp number</label>
-              <div class="phone-prefix">
-                <span>+256</span>
-                <input type="tel" id="phone" name="phone" placeholder="70X XXX XXX" class="form-control" required>
-              </div>
-            </div>
-
-            <!-- Email -->
-            <div class="mb-3">
-              <label for="email" class="form-label">Email address</label>
-              <input type="email" id="email" name="email" placeholder="you@example.com" class="form-control" required>
-            </div>
-            <hr>
-            <p class="mt-4 mb-4">
-              <span class="bg-soft">For Exclusive membership benefits</span>
-            </p>
-
-            <button type="submit" class="btn-primary">Continue</button>
-          </form>
-
-          <!-- hidden remember-me checkbox for cookie logic (not visible) -->
-          <div class="remember-hidden">
-            <input type="checkbox" id="remember-me" checked>
-          </div>
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>NEW<br>VIBES.<br><span>NEW LOOKS.</span></h1>
+            <p>Discover Town Gwiss — premium fashion built around confidence, organised style and a worldwide vibe.</p>
         </div>
-      </div>
+        <div class="hero-visual">
+            <div class="signup-box">
+                <h3>WELCOME TO THE GWISS COMMUNITY</h3>
+                <p>Get first access to new drops, exclusive looks, special offers and fashion updates.</p>
+                <form onsubmit="return submitSignup(this,'heroMessage')">
+                    <div class="signup-fields">
+                        <input type="email" name="email" placeholder="Your email address" autocomplete="email" required>
+                        <input type="tel" name="whatsapp" placeholder="WhatsApp number" autocomplete="tel" required>
+                    </div>
+                    <button class="signup-button" type="submit">JOIN THE GWISS COMMUNITY</button>
+                    <a class="whatsapp-button" href="https://wa.me/256765811560?text=Hello%20Town%20Gwiss%2C%20I%27d%20like%20to%20join%20the%20Gwiss%20community." target="_blank" rel="noopener">JOIN US ON WHATSAPP</a>
+                    <div class="signup-note" id="heroMessage">By joining, you agree to receive Town Gwiss launch updates, new looks and special offers.</div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION HEADING -->
+    <section class="section-heading">
+        <small>TOWN GWISS · NEW COLLECTION</small>
+        <h2>COMING. SOON.</h2>
+    </section>
+
+    <!-- GALLERY -->
+    <main class="gallery">
+
+        <!-- Sports -->
+        <article class="card" data-title="Sports" data-description="Bold color. Clean structure. Everyday confidence." data-image="https://towngwiss.com/images/yellow.jpg" data-url="https://towngwiss.com/posts/sports.html" data-badge="Sports">
+            <div class="card-image">
+                <img src="./images/yellow.jpg" alt="Gwiss Sports Collection">
+                <div class="card-overlay"><span>Shop The Look</span></div>
+            </div>
+            <div class="card-info">
+                <h3>Sports</h3>
+                <p>Bold color. Clean structure. Everyday confidence.</p>
+                <div class="card-actions">
+                  <span class="badge">SPORTS</span><br>
+                  <button class="share-button" onclick="shareProduct(this)" type="button"><i class="fa-solid fa-paper-plane"></i> Share</button>
+                </div>  
+            </div>
+        </article>
+
+        <!-- Essential Tee -->
+        <article class="card" data-title="Gwiss Essential Tee" data-description="Minimal. Clean. Designed for everyday style." data-image="https://towngwiss.com/images/tee.png" data-url="https://towngwiss.com/posts/essential-tee.html" data-badge="Essential">
+            <div class="card-image">
+                <img src="./images/tee.png" alt="Gwiss Essential White Tee">
+                <div class="card-overlay"><span>Discover</span></div>
+            </div>
+            <div class="card-info">
+                <h3>Gwiss Essential Tee</h3>
+                <p>Minimal. Clean. Designed for everyday style.</p>
+                <div class="card-actions">
+                  <span class="badge">Essential</span><br>
+                  <button class="share-button" onclick="shareProduct(this)" type="button"><i class="fa-solid fa-paper-plane"></i> Share</button>
+                </div>  
+            </div>
+        </article>
+
+        <!-- Featured -->
+        <article class="card featured">
+            <div>
+                <small>TOWN GWISS</small>
+                <h2>STYLE<br>WITHOUT<br>LIMITS.</h2>
+                <div class="featured-line"></div>
+            </div>
+        </article>
+
+        <!-- Relaxed Flow Pants -->
+        <article class="card" data-title="Relaxed Flow Pants" data-description="Wide-leg comfort with a premium fashion finish." data-image="https://towngwiss.com/images/soon.png" data-url="https://towngwiss.com/posts/relaxed-flow-pants.html" data-badge="New Arrival">
+            <div class="card-image">
+                <img src="./images/soon.png" alt="Gwiss Relaxed Flow Pants">
+                <div class="card-overlay"><span>View Product</span></div>
+            </div>
+            <div class="card-info">
+                <h3>Relaxed Flow Pants</h3>
+                <p>Wide-leg comfort with a premium fashion finish.</p>
+                <div class="card-actions">
+                  <span class="badge">New Arrival</span><br>
+                  <button class="share-button" onclick="shareProduct(this)" type="button"><i class="fa-solid fa-paper-plane"></i> Share</button>
+                </div>
+            </div>
+        </article>
+
+        <!-- Street Kicks -->
+        <article class="card" data-title="Gwiss Street Kicks" data-description="Everyday movement. Bold street energy." data-image="https://towngwiss.com/images/jackets.jpg" data-url="https://towngwiss.com/posts/street-kicks.html" data-badge="Featured">
+            <div class="card-image">
+                <img src="./images/sleeved.png" alt="Gwiss Street Kicks">
+                <div class="card-overlay"><span>Shop Now</span></div>
+            </div>
+            <div class="card-info">
+                <h3>Gwiss Street Kicks</h3>
+                <p>Everyday movement. Bold street energy.</p>
+                <div class="card-actions">
+                  <span class="badge">Featured</span><br>
+                  <button class="share-button" onclick="shareProduct(this)" type="button"><i class="fa-solid fa-paper-plane"></i> Share</button>
+                </div>
+            </div>
+        </article>
+
+        <!-- Men's Collection -->
+        <article class="card" data-title="Men's Collection" data-description="Organised style built for the modern man." data-image="https://towngwiss.com/images/collection.jpg" data-url="https://towngwiss.com/posts/mens-collection.html" data-badge="Men">
+            <div class="card-image">
+                <img src="./images/collection.jpg" alt="Town Gwiss Men's Collection">
+                <div class="card-overlay"><span>Explore Collection</span></div>
+            </div>
+            <div class="card-info">
+                <h3>Men's Collection</h3>
+                <p>Organised style built for the modern man.</p>
+                <div class="card-actions">
+                  <span class="badge">Men</span><br>
+                  <button class="share-button" onclick="shareProduct(this)" type="button"><i class="fa-solid fa-paper-plane"></i> Share</button>
+                </div>
+            </div>
+        </article>
+
+        <!-- New Arrivals -->
+        <article class="card" data-title="New Arrivals" data-description="New vibes. New looks. The latest from Town Gwiss." data-image="https://towngwiss.com/images/arrivals.png" data-url="https://towngwiss.com/posts/new-arrivals.html" data-badge="Just In">
+            <div class="card-image">
+                <img src="./images/arrivals.png" alt="Town Gwiss New Arrivals">
+                <div class="card-overlay"><span>Explore</span></div>
+            </div>
+            <div class="card-info">
+                <h3>New Arrivals</h3>
+                <p>New vibes. New looks. The latest from Town Gwiss.</p>
+                <div class="card-actions">
+                  <span class="badge">Just In</span><br>
+                  <button class="share-button" onclick="shareProduct(this)" type="button"><i class="fa-solid fa-paper-plane"></i> Share</button>
+                </div>
+            </div>
+        </article>
+
+        <!-- Signature Shirt -->
+        <article class="card" data-title="Gwiss Signature Shirt" data-description="Premium fabric. Organised details." data-image="https://towngwiss.com/images/wolf.png" data-url="https://towngwiss.com/posts/signature-shirt.html" data-badge="Signature">
+            <div class="card-image">
+                <img src="./images/wolf.png" alt="Gwiss Shirt Detail">
+                <div class="card-overlay"><span>View Details</span></div>
+            </div>
+            <div class="card-info">
+                <h3>Gwiss Signature Shirt</h3>
+                <p>Premium fabric. Organised details.</p>
+                <div class="card-actions">
+                  <span class="badge">Signature</span><br>
+                  <button class="share-button" onclick="shareProduct(this)" type="button"><i class="fa-solid fa-paper-plane"></i> Share</button>
+                </div>
+            </div>
+        </article>
+
+        <!-- Women's Collection -->
+        <article class="card" data-title="Women's Collection" data-description="Bold color. Clean structure. Everyday confidence." data-image="https://towngwiss.com/images/women.png" data-url="https://towngwiss.com/posts/womens-collection.html" data-badge="Women">
+            <div class="card-image">
+                <img src="./images/women.png" alt="Gwiss Women's Collection">
+                <div class="card-overlay"><span>Women's</span></div>
+            </div>
+            <div class="card-info">
+                <h3>Women's Collection</h3>
+                <p>Bold color. Clean structure. Everyday confidence.</p>
+                <div class="card-actions">
+                  <span class="badge">Women</span><br>
+                  <button class="share-button" onclick="shareProduct(this)" type="button"><i class="fa-solid fa-paper-plane"></i> Share</button>
+                </div>
+            </div>
+        </article>
+
+        <!-- The Gwiss Look -->
+        <article class="card" data-title="The Gwiss Look" data-description="No competition. Just organised style." data-image="https://towngwiss.com/images/look.png" data-url="https://towngwiss.com/posts/the-gwiss-look.html" data-badge="Full Look">
+            <div class="card-image">
+                <img src="./images/look.png" alt="Complete Town Gwiss Look">
+                <div class="card-overlay"><span>Shop Complete Look</span></div>
+            </div>
+            <div class="card-info">
+                <h3>The Gwiss Look</h3>
+                <p>No competition. Just organised style.</p>
+                <div class="card-actions">
+                  <span class="badge">Full Look</span><br>
+                  <button class="share-button" onclick="shareProduct(this)" type="button"><i class="fa-solid fa-paper-plane"></i> Share</button>
+                </div>
+            </div>
+        </article>
+
+        <!-- Bomber Jackets -->
+        <article class="card" data-title="Bomber Jackets" data-description="Premium streetwear with a fashion finish." data-image="https://towngwiss.com/images/jackets.png" data-url="https://towngwiss.com/posts/bomber-jackets.html" data-badge="Jackets">
+            <div class="card-image">
+                <img src="./images/jackets.png" alt="Gwiss Bomber Jackets">
+                <div class="card-overlay"><span>View Product</span></div>
+            </div>
+            <div class="card-info">
+                <h3>Bomber Jackets</h3>
+                <p>Premium streetwear with a fashion finish.</p>
+                <div class="card-actions">
+                  <span class="badge">Jackets</span><br>
+                  <button class="share-button" onclick="shareProduct(this)" type="button"><i class="fa-solid fa-paper-plane"></i> Share</button>
+                </div>
+            </div>
+        </article>
+
+        <!-- His & Hers -->
+        <article class="card" data-title="His & Hers" data-description="Love. Designed together. Everyday confidence." data-image="https://towngwiss.com/images/couple.jpg" data-url="https://towngwiss.com/posts/his-and-hers.html" data-badge="His & Hers">
+            <div class="card-image">
+                <img src="./images/couple.jpg" alt="Town Gwiss His and Hers Collection">
+                <div class="card-overlay"><span>His & Hers</span></div>
+            </div>
+            <div class="card-info">
+                <h3>His & Hers</h3>
+                <p>Love. Designed together. Everyday confidence.</p>
+                <div class="card-actions">
+                  <span class="badge">His & Hers</span><br>
+                  <button class="share-button" onclick="shareProduct(this)" type="button"><i class="fa-solid fa-paper-plane"></i> Share</button>
+                </div>
+            </div>
+        </article>
+
+    </main>
+
+    <!-- WAITLIST -->
+    <section class="waitlist">
+        <h2>BE FIRST IN LINE</h2>
+        <p>Join the Town Gwiss waitlist for launch updates, early access, exclusive drops and new collections.</p>
+        <div class="signup-box">
+            <h3>GET GWISS DIRECTLY</h3>
+            <p>Leave your email and WhatsApp number to receive launch alerts, early access and exclusive drops.</p>
+            <form onsubmit="return submitSignup(this,'waitlistMessage')">
+                <div class="signup-fields">
+                    <input type="email" name="email" placeholder="Your email address" autocomplete="email" required>
+                    <input type="tel" name="whatsapp" placeholder="WhatsApp number" autocomplete="tel" required>
+                </div>
+                <button class="signup-button" type="submit">GET EARLY ACCESS</button>
+                <div class="signup-note" id="waitlistMessage">Your details stay with Town Gwiss and are used for Gwiss updates and offers.</div>
+            </form>
+        </div>
+    </section>
+
+    <!-- SHARE MODAL -->
+    <div id="shareModal" class="share-modal">
+        <div class="share-modal-box">
+            <button class="share-close" onclick="closeShareModal()" type="button" aria-label="Close share window">×</button>
+            <img id="modalShareImage" src="" alt="">
+            <div class="share-modal-content">
+                <small id="modalShareBadge"></small>
+                <h3 id="modalShareTitle"></h3>
+                <p id="modalShareDescription"></p>
+                <div class="share-modal-actions">
+                    <button type="button" onclick="copyShareLink()"><i class="fa-solid fa-link"></i> Copy Link</button>
+                    <button type="button" onclick="shareToWhatsApp()"><i class="fa-brands fa-whatsapp"></i>WhatsApp</button>
+                    <button type="button" onclick="shareToFacebook()"><i class="fa-brands fa-facebook"></i>Facebook</button>
+                    <button type="button" onclick="shareToX()"><i class="fa-brands fa-x-twitter"></i>X</button>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 
- <!-- scripts (jQuery, form handling, cookie, rotation) – all mobile compatible -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    <!-- FOOTER -->
+    <footer>
+        <div>
+            <div class="footer-logo">TOWN <span>GWISS</span></div>
+            <div style="margin-top:8px;">© 2026 Town Gwiss. All rights reserved.</div>
+        </div>
+        <div class="socials">
+            <a href="#">Instagram</a>
+            <a href="#">Telegram</a>
+            <a href="#">TikTok</a>
+        </div>
+    </footer>
 
-      // ------------------ IMAGE ROTATION ------------------
-      const photos = [
-        "https://static-gcp.freepikcompany.com/web-app/media/freepik-3-2000.webp",
-        "https://static-gcp.freepikcompany.com/web-app/media/freepik-11-2000.webp",
-        "https://static-gcp.freepikcompany.com/web-app/media/freepik-18-2000.webp",
-        "https://static-gcp.freepikcompany.com/web-app/media/freepik-23-2000.webp",
-        "https://static-gcp.freepikcompany.com/web-app/media/freepik-25-2000.webp",
-        "https://static-gcp.freepikcompany.com/web-app/media/freepik-27-2000.webp"
-      ];
-
-      const leftDiv = document.getElementById('random-image');
-
-      function changeLeftImage() {
-        if (!leftDiv) return;
-        const randomIndex = Math.floor(Math.random() * photos.length);
-        leftDiv.style.backgroundImage = `url('${photos[randomIndex]}')`;
-      }
-
-      changeLeftImage();
-      setInterval(changeLeftImage, 25000);
-
-      // ------------------ COOKIE FUNCTIONS ------------------
-      function createCookie(name, value, days) {
-        let expires = "";
-        if (days) {
-          const date = new Date();
-          date.setTime(date.getTime() + (days * 86400000));
-          expires = "; expires=" + date.toUTCString();
+    <script>
+        function submitSignup(form, messageId) {
+            const email = form.email.value.trim();
+            const whatsapp = form.whatsapp.value.trim();
+            const message = document.getElementById(messageId);
+            if (!email || !whatsapp) return false;
+            console.log("Town Gwiss signup:", { email, whatsapp });
+            message.textContent = "You're on the list. Welcome to Town Gwiss — New Vibes. New Looks.";
+            message.style.color = "#a08400";
+            form.reset();
+            return false;
         }
-        document.cookie = encodeURIComponent(name) + "=" + encodeURIComponent(value) + expires + "; path=/";
-      }
 
-      function readCookie(name) {
-        const nameEQ = encodeURIComponent(name) + "=";
-        const cookies = document.cookie.split(';');
-        for (let c of cookies) {
-          c = c.trim();
-          if (c.indexOf(nameEQ) === 0) {
-            return decodeURIComponent(c.substring(nameEQ.length));
-          }
+        let currentShareData = {};
+
+        async function shareProduct(button) {
+            const card = button.closest(".card");
+            const title = card.dataset.title || card.querySelector(".card-info h3")?.textContent.trim() || "Town Gwiss";
+            const description = card.dataset.description || card.querySelector(".card-info p")?.textContent.trim() || "New vibes. New looks.";
+            const image = card.dataset.image || card.querySelector(".card-image img")?.src || "";
+            const badge = card.dataset.badge || card.querySelector(".badge")?.textContent.trim() || "";
+            const url = card.dataset.url || window.location.href;
+            currentShareData = { title, description, image, badge, url };
+
+            if (navigator.share) {
+                try {
+                    const response = await fetch(image);
+                    const blob = await response.blob();
+                    const extension = blob.type.includes("png") ? "png" : "jpg";
+                    const safeName = title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+                    const file = new File([blob], `town-gwiss-${safeName}.${extension}`, { type: blob.type });
+                    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                        await navigator.share({
+                            title: `TOWN GWISS — ${title}`,
+                            text: `${description}\n\nTOWN GWISS — New Vibes. New Looks.`,
+                            files: [file]
+                        });
+                        return;
+                    }
+                } catch (error) {
+                    console.log("Image sharing unavailable:", error);
+                }
+                try {
+                    await navigator.share({
+                        title: `TOWN GWISS — ${title}`,
+                        text: `${description}\n\nTOWN GWISS — New Vibes. New Looks.`,
+                        url: url
+                    });
+                    return;
+                } catch (error) {
+                    if (error.name === "AbortError") return;
+                }
+            }
+            showShareModal(currentShareData);
         }
-        return null;
-      }
 
-      function eraseCookie(name) {
-        createCookie(name, "", -1);
-      }
+        function showShareModal(data) {
+            document.getElementById("modalShareImage").src = data.image;
+            document.getElementById("modalShareImage").alt = data.title;
+            document.getElementById("modalShareTitle").textContent = data.title;
+            document.getElementById("modalShareDescription").textContent = data.description;
+            document.getElementById("modalShareBadge").textContent = data.badge;
+            document.getElementById("shareModal").classList.add("active");
+        }
 
-      const emailInput = document.getElementById('email');
-      const rememberCheckbox = document.getElementById('remember-me');
+        function closeShareModal() {
+            document.getElementById("shareModal").classList.remove("active");
+        }
 
-      if (readCookie('userLoginID') && emailInput) {
-        emailInput.value = readCookie('userLoginID');
-        if (rememberCheckbox) rememberCheckbox.checked = true;
-      }
+        async function copyShareLink() {
+            try {
+                await navigator.clipboard.writeText(currentShareData.url);
+                const originalText = event?.target?.textContent;
+                if (event?.target) {
+                    event.target.textContent = "✓ Copied";
+                    setTimeout(() => { event.target.textContent = originalText || "🔗 Copy Link"; }, 1800);
+                }
+            } catch (error) {
+                prompt("Copy this link:", currentShareData.url);
+            }
+        }
 
-      if (emailInput) {
-        emailInput.addEventListener('input', function () {
-          if (rememberCheckbox && rememberCheckbox.checked) {
-            createCookie('userLoginID', emailInput.value, 9999);
-          }
+        function shareToWhatsApp() {
+            const message = `*${currentShareData.title}*\n\n${currentShareData.description}\n\nTOWN GWISS — New Vibes. New Looks.\n\n${currentShareData.url}`;
+            window.open("https://wa.me/?text=" + encodeURIComponent(message), "_blank");
+        }
+
+        function shareToFacebook() {
+            window.open("https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(currentShareData.url), "_blank");
+        }
+
+        function shareToX() {
+            const text = `${currentShareData.title} — ${currentShareData.description}`;
+            window.open("https://twitter.com/intent/tweet?text=" + encodeURIComponent(text) + "&url=" + encodeURIComponent(currentShareData.url), "_blank");
+        }
+
+        document.getElementById("shareModal").addEventListener("click", function(event) {
+            if (event.target === this) closeShareModal();
         });
-      }
 
-      if (rememberCheckbox) {
-        rememberCheckbox.addEventListener('change', function () {
-          if (this.checked) {
-            createCookie('userLoginID', emailInput.value, 9999);
-          } else {
-            eraseCookie('userLoginID');
-          }
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Escape") closeShareModal();
         });
-      }
+    </script>
 
-      // ------------------ PHONE DIGITS ONLY ------------------
-      const phoneInput = document.getElementById('phone');
-      if (phoneInput) {
-        phoneInput.addEventListener('input', function () {
-          this.value = this.value.replace(/\D/g, '');
-        });
-      }
+</body>
 
-      // ------------------ FORM SUBMIT ------------------
-      const form = document.getElementById('signupForm');
-
-      if (!form) return;
-
-      form.addEventListener('submit', function (e) {
-
-        const name = document.getElementById('name').value.trim();
-        const phone = phoneInput.value.trim();
-        const email = emailInput.value.trim();
-
-        // Validation
-        if (!name) {
-          alert('Please enter your name');
-          e.preventDefault();
-          return;
-        }
-
-        if (!phone) {
-          alert('Please enter your WhatsApp number');
-          e.preventDefault();
-          return;
-        }
-
-        if (!email) {
-          alert('Please enter your email');
-          e.preventDefault();
-          return;
-        }
-
-        // Save name for welcome page
-        localStorage.setItem('userName', name);
-
-        // Format phone correctly
-        const digitsOnly = phone.replace(/\D/g, '');
-        phoneInput.value = '+256' + digitsOnly;
-
-        // Allow normal form submission (NO fetch)
-      });
-
-    });
-  </script>
-</body>     
 </html>
