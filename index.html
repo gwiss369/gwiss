@@ -382,7 +382,7 @@
             const description = card.dataset.description || card.querySelector(".card-info p")?.textContent.trim() || "New vibes. New looks.";
             const image = card.dataset.image || card.querySelector(".card-image img")?.src || "";
             const badge = card.dataset.badge || card.querySelector(".badge")?.textContent.trim() || "";
-            const url = card.dataset.url || window.location.href;
+            const url = "https://www.towngwiss.com/";
             currentShareData = { title, description, image, badge, url };
 
             if (navigator.share) {
@@ -396,7 +396,8 @@
                         await navigator.share({
                             title: `TOWN GWISS — ${title}`,
                             text: `${description}\n\nTOWN GWISS — New Vibes. New Looks.`,
-                            files: [file]
+                            files: [file],
+                             url: "https://www.towngwiss.com/"
                         });
                         return;
                     }
@@ -444,7 +445,7 @@
         }
 
         function shareToWhatsApp() {
-            const message = `*${currentShareData.title}*\n\n${currentShareData.description}\n\nTOWN GWISS — New Vibes. New Looks.\nwww.towngwiss.com\n\n${currentShareData.url}`;
+            const message = `*${currentShareData.title}*\n\n${currentShareData.description}\n\nTOWN GWISS — New Vibes. New Looks.\nhttps://www.towngwiss.com/\n\n${currentShareData.url}`;
             window.open("https://wa.me/?text=" + encodeURIComponent(message), "_blank");
         }
 
@@ -453,7 +454,7 @@
         }
 
         function shareToX() {
-            const text = `${currentShareData.title} — ${currentShareData.description}\n\nTOWN GWISS — New Vibes. New Looks.\nwww.towngwiss.com`;
+            const text = `${currentShareData.title} — ${currentShareData.description}\n\nTOWN GWISS — New Vibes. New Looks.\nhttps://www.towngwiss.com/`;
             window.open("https://twitter.com/intent/tweet?text=" + encodeURIComponent(text) + "&url=" + encodeURIComponent(currentShareData.url), "_blank");
         }
 
