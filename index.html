@@ -378,43 +378,100 @@
 
         async function shareProduct(button) {
             const card = button.closest(".card");
-            const title = card.dataset.title || card.querySelector(".card-info h3")?.textContent.trim() || "Town Gwiss";
-            const description = card.dataset.description || card.querySelector(".card-info p")?.textContent.trim() || "New vibes. New looks.";
-            const image = card.dataset.image || card.querySelector(".card-image img")?.src || "";
-            const badge = card.dataset.badge || card.querySelector(".badge")?.textContent.trim() || "";
-            const url = "https://www.towngwiss.com/";
-            currentShareData = { title, description, image, badge, url };
 
+            const title =
+                card.dataset.title ||
+                card.querySelector(".card-info h3")?.textContent.trim() ||
+                "Town Gwiss";
+
+            const description =
+                card.dataset.description ||
+                card.querySelector(".card-info p")?.textContent.trim() ||
+                "New vibes. New looks.";
+
+            const image =
+                card.dataset.image ||
+                card.querySelector(".card-image img")?.src ||
+                "";
+
+            const badge =
+                card.dataset.badge ||
+                card.querySelector(".badge")?.textContent.trim() ||
+                "";
+
+            const website = "https://www.towngwiss.com/";
+
+            currentShareData = {
+                title,
+                description,
+                image,
+                badge,
+                url: website
+            };
+
+            const shareText =
+                `${title}\n\n` +
+                `${description}\n\n` +
+                `TOWN GWISS — New Vibes. New Looks.\n` +
+                `www.towngwiss.com`;
+
+            /*
+             * Native sharing:
+             * - attaches the actual product image
+             * - includes product title and description
+             * - includes TOWN GWISS branding
+             * - passes the website as a real share URL
+             */
             if (navigator.share) {
                 try {
                     const response = await fetch(image);
                     const blob = await response.blob();
-                    const extension = blob.type.includes("png") ? "png" : "jpg";
-                    const safeName = title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
-                    const file = new File([blob], `town-gwiss-${safeName}.${extension}`, { type: blob.type });
-                    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+
+                    const extension =
+                        blob.type.includes("png") ? "png" :
+                        blob.type.includes("webp") ? "webp" : "jpg";
+
+                    const safeName = title
+                        .toLowerCase()
+                        .replace(/[^a-z0-9]+/g, "-")
+                        .replace(/(^-|-$)/g, "");
+
+                    const file = new File(
+                        [blob],
+                        `town-gwiss-${safeName}.${extension}`,
+                        { type: blob.type || "image/jpeg" }
+                    );
+
+                    if (
+                        navigator.canShare &&
+                        navigator.canShare({ files: [file] })
+                    ) {
                         await navigator.share({
                             title: `TOWN GWISS — ${title}`,
-                            text: `${description}\n\nTOWN GWISS — New Vibes. New Looks.`,
-                            files: [file],
-                             url: "https://www.towngwiss.com/"
+                            text: shareText,
+                            url: website,
+                            files: [file]
                         });
                         return;
                     }
                 } catch (error) {
+                    if (error.name === "AbortError") return;
                     console.log("Image sharing unavailable:", error);
                 }
+
+                /* Fallback when image-file sharing is unavailable */
                 try {
                     await navigator.share({
                         title: `TOWN GWISS — ${title}`,
-                        text: `${description}\n\nTOWN GWISS — New Vibes. New Looks.`,
-                        url: url
+                        text: shareText,
+                        url: website
                     });
                     return;
                 } catch (error) {
                     if (error.name === "AbortError") return;
                 }
             }
+
             showShareModal(currentShareData);
         }
 
@@ -425,6 +482,68 @@
             document.getElementById("modalShareDescription").textContent = data.description;
             document.getElementById("modalShareBadge").textContent = data.badge;
             document.getElementById("shareModal").classList.add("active");
+        }
+
+        function closeShareModal() {
+            document.getElementById("shareModal").classList.remove("active");
+        }
+
+        async function copyShareLink() {
+            const shareUrl = "https://www.towngwiss.com/";
+
+            try {
+                await navigator.clipboard.writeText(shareUrl);
+                const button = document.querySelector(".share-modal-actions button");
+                if (button) {
+                    const originalText = button.textContent;
+                    button.textContent = "✓ Copied";
+                    setTimeout(() => {
+                        button.textContent = originalText;
+                    }, 1800);
+                }
+            } catch (error) {
+                prompt("Copy this link:", shareUrl);
+            }
+        }
+
+        function shareToWhatsApp() {
+            const message =
+                `*${currentShareData.title}*\n\n` +
+                `${currentShareData.description}\n\n` +
+                `TOWN GWISS — New Vibes. New Looks.\n` +
+                `www.towngwiss.com`;
+
+            window.open(
+                "https://wa.me/?text=" + encodeURIComponent(message),
+                "_blank"
+            );
+        }
+
+        function shareToFacebook() {
+            window.open(
+                "https://www.facebook.com/sharer/sharer.php?u=" +
+                encodeURIComponent("https://www.towngwiss.com/"),
+                "_blank"
+            );
+        }
+
+        function shareToX() {
+            const text =
+                `${currentShareData.title}\n\n` +
+                `${currentShareData.description}\n\n` +
+                `TOWN GWISS — New Vibes. New Looks.\n` +
+                `www.towngwiss.com`;
+
+            window.open(
+                "https://twitter.com/intent/tweet?text=" +
+                encodeURIComponent(text) +
+                "&url=" +
+                encodeURIComponent("https://www.towngwiss.com/"),
+                "_blank"
+            );
+        }
+
+        document.getElementById("shareModal").classList.add("active");
         }
 
         function closeShareModal() {
@@ -445,7 +564,7 @@
         }
 
         function shareToWhatsApp() {
-            const message = `*${currentShareData.title}*\n\n${currentShareData.description}\n\nTOWN GWISS — New Vibes. New Looks.\nhttps://www.towngwiss.com/\n\n${currentShareData.url}`;
+            const message = `*${currentShareData.title}*\n\n${currentShareData.description}\n\nTOWN GWISS — New Vibes. New Looks.\n\n${currentShareData.url}`;
             window.open("https://wa.me/?text=" + encodeURIComponent(message), "_blank");
         }
 
@@ -454,7 +573,7 @@
         }
 
         function shareToX() {
-            const text = `${currentShareData.title} — ${currentShareData.description}\n\nTOWN GWISS — New Vibes. New Looks.\nhttps://www.towngwiss.com/`;
+            const text = `${currentShareData.title} — ${currentShareData.description}`;
             window.open("https://twitter.com/intent/tweet?text=" + encodeURIComponent(text) + "&url=" + encodeURIComponent(currentShareData.url), "_blank");
         }
 
