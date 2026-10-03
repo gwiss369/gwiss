@@ -374,6 +374,9 @@
             return false;
         }
 
+        const GWISS_WEBSITE = "https://www.towngwiss.com/";
+        const GWISS_WEBSITE_TEXT = "www.towngwiss.com";
+
         let currentShareData = {};
 
         async function shareProduct(button) {
@@ -399,38 +402,29 @@
                 card.querySelector(".badge")?.textContent.trim() ||
                 "";
 
-            const website = "https://www.towngwiss.com/";
+            const productUrl = card.dataset.url || window.location.href;
 
             currentShareData = {
                 title,
                 description,
                 image,
                 badge,
-                url: website
+                url: GWISS_WEBSITE,
+                productUrl
             };
 
             const shareText =
                 `${title}\n\n` +
                 `${description}\n\n` +
                 `TOWN GWISS — New Vibes. New Looks.\n` +
-                `www.towngwiss.com`;
+                `${GWISS_WEBSITE_TEXT}`;
 
-            /*
-             * Native sharing:
-             * - attaches the actual product image
-             * - includes product title and description
-             * - includes TOWN GWISS branding
-             * - passes the website as a real share URL
-             */
             if (navigator.share) {
                 try {
                     const response = await fetch(image);
                     const blob = await response.blob();
 
-                    const extension =
-                        blob.type.includes("png") ? "png" :
-                        blob.type.includes("webp") ? "webp" : "jpg";
-
+                    const extension = blob.type.includes("png") ? "png" : "jpg";
                     const safeName = title
                         .toLowerCase()
                         .replace(/[^a-z0-9]+/g, "-")
@@ -439,17 +433,14 @@
                     const file = new File(
                         [blob],
                         `town-gwiss-${safeName}.${extension}`,
-                        { type: blob.type || "image/jpeg" }
+                        { type: blob.type }
                     );
 
-                    if (
-                        navigator.canShare &&
-                        navigator.canShare({ files: [file] })
-                    ) {
+                    if (navigator.canShare && navigator.canShare({ files: [file] })) {
                         await navigator.share({
                             title: `TOWN GWISS — ${title}`,
                             text: shareText,
-                            url: website,
+                            url: GWISS_WEBSITE,
                             files: [file]
                         });
                         return;
@@ -459,12 +450,11 @@
                     console.log("Image sharing unavailable:", error);
                 }
 
-                /* Fallback when image-file sharing is unavailable */
                 try {
                     await navigator.share({
                         title: `TOWN GWISS — ${title}`,
                         text: shareText,
-                        url: website
+                        url: GWISS_WEBSITE
                     });
                     return;
                 } catch (error) {
@@ -489,68 +479,6 @@
         }
 
         async function copyShareLink() {
-            const shareUrl = "https://www.towngwiss.com/";
-
-            try {
-                await navigator.clipboard.writeText(shareUrl);
-                const button = document.querySelector(".share-modal-actions button");
-                if (button) {
-                    const originalText = button.textContent;
-                    button.textContent = "✓ Copied";
-                    setTimeout(() => {
-                        button.textContent = originalText;
-                    }, 1800);
-                }
-            } catch (error) {
-                prompt("Copy this link:", shareUrl);
-            }
-        }
-
-        function shareToWhatsApp() {
-            const message =
-                `*${currentShareData.title}*\n\n` +
-                `${currentShareData.description}\n\n` +
-                `TOWN GWISS — New Vibes. New Looks.\n` +
-                `www.towngwiss.com`;
-
-            window.open(
-                "https://wa.me/?text=" + encodeURIComponent(message),
-                "_blank"
-            );
-        }
-
-        function shareToFacebook() {
-            window.open(
-                "https://www.facebook.com/sharer/sharer.php?u=" +
-                encodeURIComponent("https://www.towngwiss.com/"),
-                "_blank"
-            );
-        }
-
-        function shareToX() {
-            const text =
-                `${currentShareData.title}\n\n` +
-                `${currentShareData.description}\n\n` +
-                `TOWN GWISS — New Vibes. New Looks.\n` +
-                `www.towngwiss.com`;
-
-            window.open(
-                "https://twitter.com/intent/tweet?text=" +
-                encodeURIComponent(text) +
-                "&url=" +
-                encodeURIComponent("https://www.towngwiss.com/"),
-                "_blank"
-            );
-        }
-
-        document.getElementById("shareModal").classList.add("active");
-        }
-
-        function closeShareModal() {
-            document.getElementById("shareModal").classList.remove("active");
-        }
-
-        async function copyShareLink() {
             try {
                 await navigator.clipboard.writeText(currentShareData.url);
                 const originalText = event?.target?.textContent;
@@ -564,17 +492,39 @@
         }
 
         function shareToWhatsApp() {
-            const message = `*${currentShareData.title}*\n\n${currentShareData.description}\n\nTOWN GWISS — New Vibes. New Looks.\n\n${currentShareData.url}`;
-            window.open("https://wa.me/?text=" + encodeURIComponent(message), "_blank");
+            const message =
+                `*${currentShareData.title}*\n\n` +
+                `${currentShareData.description}\n\n` +
+                `TOWN GWISS — New Vibes. New Looks.\n` +
+                `${GWISS_WEBSITE_TEXT}`;
+
+            window.open(
+                "https://wa.me/?text=" + encodeURIComponent(message),
+                "_blank"
+            );
         }
 
         function shareToFacebook() {
-            window.open("https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(currentShareData.url), "_blank");
+            window.open(
+                "https://www.facebook.com/sharer/sharer.php?u=" +
+                encodeURIComponent(GWISS_WEBSITE),
+                "_blank"
+            );
         }
 
         function shareToX() {
-            const text = `${currentShareData.title} — ${currentShareData.description}`;
-            window.open("https://twitter.com/intent/tweet?text=" + encodeURIComponent(text) + "&url=" + encodeURIComponent(currentShareData.url), "_blank");
+            const text =
+                `${currentShareData.title} — ${currentShareData.description}\n\n` +
+                `TOWN GWISS — New Vibes. New Looks.\n` +
+                `${GWISS_WEBSITE_TEXT}`;
+
+            window.open(
+                "https://twitter.com/intent/tweet?text=" +
+                encodeURIComponent(text) +
+                "&url=" +
+                encodeURIComponent(GWISS_WEBSITE),
+                "_blank"
+            );
         }
 
         document.getElementById("shareModal").addEventListener("click", function(event) {
