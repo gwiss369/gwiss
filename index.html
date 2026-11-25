@@ -153,7 +153,7 @@
         </article>
 
         <!-- Street Kicks -->
-        <article class="card" data-title="Gwiss Street Kicks" data-description="Everyday movement. Bold street energy." data-image="https://towngwiss.com/images/jackets.jpg" data-url="https://towngwiss.com/posts/street-kicks.html" data-badge="Featured">
+        <article class="card" data-title="Gwiss Street Kicks" data-description="Everyday movement. Bold street energy." data-image="https://towngwiss.com/images/sleeved.png" data-url="https://towngwiss.com/posts/street-kicks.html" data-badge="Featured">
             <div class="card-image">
                 <img src="./images/sleeved.png" alt="Gwiss Street Kicks">
                 <div class="card-overlay"><span>Shop Now</span></div>
@@ -305,7 +305,7 @@
     </section>
 
     <!-- SHARE MODAL -->
-    <div id="shareModal" class="share-modal">
+    <div id="shareModal" class="share-modal" role="dialog" aria-modal="true" aria-labelledby="modalShareTitle" aria-hidden="true">
         <div class="share-modal-box">
             <button class="share-close" onclick="closeShareModal()" type="button" aria-label="Close share window">×</button>
             <img id="modalShareImage" src="" alt="">
@@ -314,7 +314,7 @@
                 <h3 id="modalShareTitle"></h3>
                 <p id="modalShareDescription"></p>
                 <div class="share-modal-actions">
-                    <button type="button" onclick="copyShareLink()"><i class="fa-solid fa-link"></i> Copy Link</button>
+                    <button type="button" onclick="copyShareLink(this)"><i class="fa-solid fa-link"></i> Copy Link</button>
                     <button type="button" onclick="shareToWhatsApp()"><i class="fa-brands fa-whatsapp"></i>WhatsApp</button>
                     <button type="button" onclick="shareToFacebook()"><i class="fa-brands fa-facebook"></i>Facebook</button>
                     <button type="button" onclick="shareToX()"><i class="fa-brands fa-x-twitter"></i>X</button>
@@ -337,135 +337,211 @@
     </footer>
 
     <script>
-        function submitTeamApplication(form, messageId) {
+        "use strict";
 
-            const message = document.getElementById(messageId);
+        /*
+         * FORM SUBMISSIONS
+         * Both forms intentionally use normal HTML POST submission to FormSubmit.
+         * This avoids showing a false "success" message before the service receives
+         * the submission. FormSubmit may require email activation on first use.
+         */
+        document.addEventListener("DOMContentLoaded", function () {
+            const forms = [
+                {
+                    id: "signupForm",
+                    buttonText: "JOIN THE GWISS COMMUNITY",
+                    loadingText: "SENDING APPLICATION..."
+                },
+                {
+                    id: "waitlistForm",
+                    buttonText: "GET EARLY ACCESS",
+                    loadingText: "SUBMITTING..."
+                }
+            ];
 
-            const application = {
-                fullname: form.fullname.value.trim(),
-                email: form.email.value.trim(),
-                whatsapp: form.whatsapp.value.trim(),
-                role: form.role.value,
-                about: form.about.value.trim(),
-                instagram: form.instagram.value.trim(),
-                tiktok: form.tiktok.value.trim(),
-                x: form.x.value.trim()
-            };
+            forms.forEach(function (config) {
+                const form = document.getElementById(config.id);
+                if (!form) return;
 
-            console.log("GWISS Team Application:", application);
-
-            message.textContent =
-                "Application received. Thank you for joining the GWISS Team.";
-
-            message.style.color = "#a08400";
-
-            form.reset();
-
-            return false;
-        }
-
-        function submitSignup(form, messageId) {
-            const email = form.email.value.trim();
-            const whatsapp = form.whatsapp.value.trim();
-            const message = document.getElementById(messageId);
-            if (!email || !whatsapp) return false;
-            console.log("Town Gwiss signup:", { email, whatsapp });
-            message.textContent = "You're on the list. Welcome to Town Gwiss — New Vibes. New Looks.";
-            message.style.color = "#a08400";
-            form.reset();
-            return false;
-        }
-
-        let currentShareData = {};
-
-        async function shareProduct(button) {
-            const card = button.closest(".card");
-            const title = card.dataset.title || card.querySelector(".card-info h3")?.textContent.trim() || "Town Gwiss";
-            const description = card.dataset.description || card.querySelector(".card-info p")?.textContent.trim() || "New vibes. New looks.";
-            const image = card.dataset.image || card.querySelector(".card-image img")?.src || "";
-            const badge = card.dataset.badge || card.querySelector(".badge")?.textContent.trim() || "";
-            const url = card.dataset.url || window.location.href;
-            currentShareData = { title, description, image, badge, url };
-
-            if (navigator.share) {
-                try {
-                    const response = await fetch(image);
-                    const blob = await response.blob();
-                    const extension = blob.type.includes("png") ? "png" : "jpg";
-                    const safeName = title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
-                    const file = new File([blob], `town-gwiss-${safeName}.${extension}`, { type: blob.type });
-                    if (navigator.canShare && navigator.canShare({ files: [file] })) {
-                        await navigator.share({
-                            title: `TOWN GWISS — ${title}`,
-                            text: `${description}\n\nTOWN GWISS — New Vibes. New Looks.`,
-                            files: [file]
-                        });
+                form.addEventListener("submit", function (event) {
+                    if (!form.reportValidity()) {
+                        event.preventDefault();
                         return;
                     }
-                } catch (error) {
-                    console.log("Image sharing unavailable:", error);
-                }
+
+                    const button = form.querySelector('button[type="submit"]');
+                    if (button) {
+                        button.disabled = true;
+                        button.textContent = config.loadingText;
+                    }
+                });
+            });
+
+            const modal = document.getElementById("shareModal");
+            if (modal) {
+                modal.addEventListener("click", function (event) {
+                    if (event.target === modal) closeShareModal();
+                });
+            }
+
+            document.addEventListener("keydown", function (event) {
+                if (event.key === "Escape") closeShareModal();
+            });
+        });
+
+        let currentShareData = {
+            title: "TOWN GWISS",
+            description: "New Vibes. New Looks.",
+            image: "",
+            badge: "",
+            url: window.location.href
+        };
+
+        async function shareProduct(button) {
+            const card = button ? button.closest(".card") : null;
+            if (!card) return;
+
+            const title =
+                card.dataset.title ||
+                card.querySelector(".card-info h3")?.textContent.trim() ||
+                "Town Gwiss";
+
+            const description =
+                card.dataset.description ||
+                card.querySelector(".card-info p")?.textContent.trim() ||
+                "New vibes. New looks.";
+
+            const image =
+                card.dataset.image ||
+                card.querySelector(".card-image img")?.src ||
+                "";
+
+            const badge =
+                card.dataset.badge ||
+                card.querySelector(".badge")?.textContent.trim() ||
+                "";
+
+            // Use the current page as a safe fallback if a product URL is missing.
+            const url = card.dataset.url || window.location.href;
+
+            currentShareData = { title, description, image, badge, url };
+
+            // Call the share sheet immediately while the click's user activation is valid.
+            if (navigator.share) {
                 try {
                     await navigator.share({
-                        title: `TOWN GWISS — ${title}`,
-                        text: `${description}\n\nTOWN GWISS — New Vibes. New Looks.`,
+                        title: "TOWN GWISS — " + title,
+                        text: description + "\n\nTOWN GWISS — New Vibes. New Looks.",
                         url: url
                     });
                     return;
                 } catch (error) {
-                    if (error.name === "AbortError") return;
+                    // A user cancelling the share sheet is not an application error.
+                    if (error && error.name === "AbortError") return;
+                    console.warn("Native sharing was unavailable:", error);
                 }
             }
+
             showShareModal(currentShareData);
         }
 
         function showShareModal(data) {
-            document.getElementById("modalShareImage").src = data.image;
-            document.getElementById("modalShareImage").alt = data.title;
+            const modal = document.getElementById("shareModal");
+            if (!modal) return;
+
+            const image = document.getElementById("modalShareImage");
+            image.src = data.image || "";
+            image.alt = data.image ? data.title : "";
+            image.hidden = !data.image;
+
             document.getElementById("modalShareTitle").textContent = data.title;
             document.getElementById("modalShareDescription").textContent = data.description;
             document.getElementById("modalShareBadge").textContent = data.badge;
-            document.getElementById("shareModal").classList.add("active");
+
+            modal.classList.add("active");
+            modal.setAttribute("aria-hidden", "false");
+
+            const closeButton = modal.querySelector(".share-close");
+            if (closeButton) closeButton.focus();
         }
 
         function closeShareModal() {
-            document.getElementById("shareModal").classList.remove("active");
+            const modal = document.getElementById("shareModal");
+            if (!modal) return;
+
+            modal.classList.remove("active");
+            modal.setAttribute("aria-hidden", "true");
         }
 
-        async function copyShareLink() {
+        async function copyShareLink(button) {
+            const url = currentShareData.url || window.location.href;
+
             try {
-                await navigator.clipboard.writeText(currentShareData.url);
-                const originalText = event?.target?.textContent;
-                if (event?.target) {
-                    event.target.textContent = "✓ Copied";
-                    setTimeout(() => { event.target.textContent = originalText || "🔗 Copy Link"; }, 1800);
+                if (navigator.clipboard && window.isSecureContext) {
+                    await navigator.clipboard.writeText(url);
+                } else {
+                    const temporaryInput = document.createElement("textarea");
+                    temporaryInput.value = url;
+                    temporaryInput.setAttribute("readonly", "");
+                    temporaryInput.style.position = "fixed";
+                    temporaryInput.style.opacity = "0";
+                    document.body.appendChild(temporaryInput);
+                    temporaryInput.select();
+
+                    const copied = document.execCommand("copy");
+                    temporaryInput.remove();
+
+                    if (!copied) throw new Error("Clipboard copy was not available");
+                }
+
+                if (button) {
+                    const originalText = button.textContent;
+                    button.textContent = "✓ Copied";
+                    button.disabled = true;
+                    window.setTimeout(function () {
+                        button.textContent = originalText;
+                        button.disabled = false;
+                    }, 1800);
                 }
             } catch (error) {
-                prompt("Copy this link:", currentShareData.url);
+                window.prompt("Copy this link:", url);
             }
         }
 
         function shareToWhatsApp() {
-            const message = `*${currentShareData.title}*\n\n${currentShareData.description}\n\nTOWN GWISS — New Vibes. New Looks.\n\n${currentShareData.url}`;
-            window.open("https://wa.me/?text=" + encodeURIComponent(message), "_blank");
+            const message =
+                "*" + currentShareData.title + "*\n\n" +
+                currentShareData.description +
+                "\n\nTOWN GWISS — New Vibes. New Looks.\n\n" +
+                currentShareData.url;
+
+            window.open(
+                "https://wa.me/?text=" + encodeURIComponent(message),
+                "_blank",
+                "noopener,noreferrer"
+            );
         }
 
         function shareToFacebook() {
-            window.open("https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(currentShareData.url), "_blank");
+            const shareUrl =
+                "https://www.facebook.com/sharer/sharer.php?u=" +
+                encodeURIComponent(currentShareData.url);
+
+            window.open(shareUrl, "_blank", "noopener,noreferrer");
         }
 
         function shareToX() {
-            const text = `${currentShareData.title} — ${currentShareData.description}`;
-            window.open("https://twitter.com/intent/tweet?text=" + encodeURIComponent(text) + "&url=" + encodeURIComponent(currentShareData.url), "_blank");
+            const text =
+                currentShareData.title + " — " + currentShareData.description;
+
+            const shareUrl =
+                "https://twitter.com/intent/tweet?text=" +
+                encodeURIComponent(text) +
+                "&url=" +
+                encodeURIComponent(currentShareData.url);
+
+            window.open(shareUrl, "_blank", "noopener,noreferrer");
         }
-
-        document.getElementById("shareModal").addEventListener("click", function(event) {
-            if (event.target === this) closeShareModal();
-        });
-
-        document.addEventListener("keydown", function(event) {
-            if (event.key === "Escape") closeShareModal();
-        });
     </script>
 
 </body>
