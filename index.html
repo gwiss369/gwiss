@@ -304,6 +304,37 @@
         </div>
     </section>
 
+
+    <!-- SUBMISSION CONFIRMATION -->
+    <section id="submissionConfirmation" class="submission-confirmation" role="status" aria-live="polite" hidden>
+        <div class="confirmation-card">
+            <div class="confirmation-icon" aria-hidden="true">✓</div>
+            <p class="confirmation-eyebrow">TOWN GWISS · YOU'RE ON THE LIST</p>
+            <h1 id="confirmationTitle">Submission received</h1>
+            <p id="confirmationMessage">Thank you for joining the GWISS community. Your details have been submitted successfully.</p>
+            <p class="confirmation-small">Our team will review your details and contact you with the next steps.</p>
+            <a class="confirmation-home" href="./">BACK TO TOWN GWISS</a>
+        </div>
+    </section>
+    <style>
+        .submission-confirmation[hidden] { display: none !important; }
+        .submission-confirmation {
+            position: fixed; inset: 0; z-index: 9999; display: grid; place-items: center;
+            padding: 24px; background: #090909; color: #fff; text-align: center;
+        }
+        .confirmation-card { width: min(100%, 560px); padding: clamp(28px, 6vw, 56px); border: 1px solid #383838; background: #111; }
+        .confirmation-icon { width: 68px; height: 68px; display: grid; place-items: center; margin: 0 auto 24px;
+            border-radius: 50%; background: #d5ff00; color: #090909; font-size: 34px; font-weight: 800; }
+        .confirmation-eyebrow { color: #d5ff00; letter-spacing: .16em; font-size: 11px; font-weight: 700; }
+        .confirmation-card h1 { margin: 12px 0; font-size: clamp(30px, 6vw, 48px); line-height: 1.05; }
+        .confirmation-card p { line-height: 1.65; }
+        .confirmation-small { color: #aaa; font-size: 13px; }
+        .confirmation-home { display: inline-block; margin-top: 22px; padding: 14px 22px; background: #d5ff00; color: #090909;
+            text-decoration: none; font-weight: 800; letter-spacing: .04em; }
+        .form-error { display: block; margin: 10px 0; color: #ff6b6b; font-size: 13px; }
+        .signup-button:disabled { opacity: .65; cursor: wait; }
+    </style>
+
     <!-- SHARE MODAL -->
     <div id="shareModal" class="share-modal" role="dialog" aria-modal="true" aria-labelledby="modalShareTitle" aria-hidden="true">
         <div class="share-modal-box">
@@ -341,34 +372,161 @@
 
         /*
          * FORM SUBMISSIONS
-         * Both forms intentionally use normal HTML POST submission to FormSubmit.
-         * This avoids showing a false "success" message before the service receives
-         * the submission. FormSubmit may require email activation on first use.
+         * FormSubmit handles delivery. The confirmation screen is shown only after
+         * FormSubmit redirects back through its _next URL.
+         *
+         * Duplicate checks below are browser-local. For site-wide protection across
+         * devices/browsers, enforce unique email/WhatsApp values in a server database.
          */
         document.addEventListener("DOMContentLoaded", function () {
-            const forms = [
-                {
-                    id: "signupForm",
-                    buttonText: "JOIN THE GWISS COMMUNITY",
-                    loadingText: "SENDING APPLICATION..."
-                },
-                {
-                    id: "waitlistForm",
-                    buttonText: "GET EARLY ACCESS",
-                    loadingText: "SUBMITTING..."
+            const STORAGE_KEY = "townGwissRegistrations";
+            const PENDING_KEY = "townGwissPendingSubmission";
+
+            function normalizeEmail(value) {
+                return String(value || "").trim().toLowerCase();
+            }
+
+            function normalizeWhatsApp(value) {
+                let digits = String(value || "").replace(/\D/g, "");
+                if (digits.startsWith("00")) digits = digits.slice(2);
+                // Normalize common Ugandan formats to the same international form.
+                if (digits.startsWith("0") && digits.length === 10) digits = "256" + digits.slice(1);
+                else if (digits.length === 9) digits = "256" + digits;
+                return digits;
+            }
+
+            function getRegistrations() {
+                try {
+                    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+                    return Array.isArray(saved) ? saved : [];
+                } catch (_) {
+                    return [];
                 }
+            }
+
+            function showFormError(form, message) {
+                let error = form.querySelector(".form-error");
+                if (!error) {
+                    error = document.createElement("p");
+                    error.className = "form-error";
+                    error.setAttribute("role", "alert");
+                    form.insertBefore(error, form.querySelector('button[type="submit"]'));
+                }
+                error.textContent = message;
+            }
+
+            function clearFormError(form) {
+                const error = form.querySelector(".form-error");
+                if (error) error.remove();
+            }
+
+            function showConfirmation(type, pending) {
+                const screen = document.getElementById("submissionConfirmation");
+                if (!screen) return;
+
+                const title = document.getElementById("confirmationTitle");
+                const message = document.getElementById("confirmationMessage");
+
+                if (type === "community") {
+                    title.textContent = "Application received!";
+                    message.textContent = "Thank you for applying to join the GWISS community. Your application has been submitted successfully.";
+                } else {
+                    title.textContent = "You're on the waitlist!";
+                    message.textContent = "Thank you for joining the TOWN GWISS waitlist. Your signup has been submitted successfully.";
+                }
+
+                // Register the contact only after the form provider redirects back.
+                if (pending && pending.email && pending.whatsapp) {
+                    const records = getRegistrations();
+                    const email = normalizeEmail(pending.email);
+                    const whatsapp = normalizeWhatsApp(pending.whatsapp);
+                    if (!records.some(item => item.email === email || item.whatsapp === whatsapp)) {
+                        records.push({ email, whatsapp, submittedAt: new Date().toISOString(), type });
+                        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(records)); } catch (_) {}
+                    }
+                }
+
+                try { sessionStorage.removeItem(PENDING_KEY); } catch (_) {}
+                document.body.style.overflow = "hidden";
+                screen.hidden = false;
+            }
+
+            const params = new URLSearchParams(window.location.search);
+            const confirmationType = params.get("tg-confirm");
+            if (confirmationType === "community" || confirmationType === "waitlist") {
+                let pending = null;
+                try { pending = JSON.parse(sessionStorage.getItem(PENDING_KEY) || "null"); } catch (_) {}
+                showConfirmation(confirmationType, pending);
+            }
+
+            const forms = [
+                { id: "signupForm", type: "community", buttonText: "JOIN THE GWISS COMMUNITY", loadingText: "SENDING APPLICATION..." },
+                { id: "waitlistForm", type: "waitlist", buttonText: "GET EARLY ACCESS", loadingText: "SUBMITTING..." }
             ];
 
             forms.forEach(function (config) {
                 const form = document.getElementById(config.id);
                 if (!form) return;
 
+                // FormSubmit redirects back to this page after it accepts the submission.
+                let nextField = form.querySelector('input[name="_next"]');
+                if (!nextField) {
+                    nextField = document.createElement("input");
+                    nextField.type = "hidden";
+                    nextField.name = "_next";
+                    form.appendChild(nextField);
+                }
+                const returnUrl = new URL(window.location.href);
+                returnUrl.searchParams.set("tg-confirm", config.type);
+                returnUrl.hash = "";
+                nextField.value = returnUrl.toString();
+
                 form.addEventListener("submit", function (event) {
+                    clearFormError(form);
                     if (!form.reportValidity()) {
                         event.preventDefault();
                         return;
                     }
 
+                    const emailField = form.querySelector('input[type="email"]');
+                    const phoneField = form.querySelector('input[name="whatsapp"]');
+                    const email = normalizeEmail(emailField && emailField.value);
+                    const whatsapp = normalizeWhatsApp(phoneField && phoneField.value);
+
+                    if (!email || !whatsapp) {
+                        event.preventDefault();
+                        showFormError(form, "Please enter a valid email address and WhatsApp number.");
+                        return;
+                    }
+
+                    const duplicate = getRegistrations().find(item =>
+                        item.email === email || item.whatsapp === whatsapp
+                    );
+                    if (duplicate) {
+                        event.preventDefault();
+                        showFormError(form,
+                            duplicate.email === email
+                                ? "This email address has already been registered with TOWN GWISS."
+                                : "This WhatsApp number has already been registered with TOWN GWISS."
+                        );
+                        return;
+                    }
+
+                    // Stop rapid double-clicks while the provider is processing this POST.
+                    if (form.dataset.submitting === "true") {
+                        event.preventDefault();
+                        return;
+                    }
+
+                    try {
+                        sessionStorage.setItem(PENDING_KEY, JSON.stringify({
+                            email, whatsapp, type: config.type
+                        }));
+                    } catch (_) {
+                        // The provider submission can still proceed if browser storage is unavailable.
+                    }
+
+                    form.dataset.submitting = "true";
                     const button = form.querySelector('button[type="submit"]');
                     if (button) {
                         button.disabled = true;
